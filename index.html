@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Romindly ROS1 学院 · 定位导航开源教程</title>
-<meta name="description" content="面向 x86 边缘计算单元的 ROS1 定位·导航·基础中文开源教程系列，由 Romindly 维护。">
+<meta name="description" content="面向 x86 边缘计算单元的 ROS1 定位·导航·基础中英文开源教程系列，由 Romindly 维护。ROS1 localization & navigation tutorials for x86 edge computing units.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -32,6 +32,10 @@ body{
   line-height:1.7;
   overflow-x:hidden;
 }
+/* ====== 双语切换 ====== */
+.en{display:none}
+body.lang-en .en{display:inline}
+body.lang-en .zh{display:none}
 /* ====== 星空与网格背景 ====== */
 #stars{position:fixed;inset:0;z-index:-2}
 body::before{
@@ -59,7 +63,7 @@ section{padding:72px 0}
 }
 .sec-tag::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--cyan))}
 h2{font-size:1.9rem;font-weight:700;color:#eaf3ff;margin-bottom:10px;letter-spacing:.04em}
-.sec-sub{color:var(--text-dim);max-width:640px;margin-bottom:40px}
+.sec-sub{color:var(--text-dim);max-width:680px;margin-bottom:40px}
 /* ====== 顶栏 ====== */
 nav{
   position:sticky;top:0;z-index:50;
@@ -69,9 +73,17 @@ nav{
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:60px}
 .logo{font-family:'Orbitron';font-weight:900;font-size:1.05rem;letter-spacing:.18em;color:#eaf3ff}
 .logo b{color:var(--cyan);text-shadow:var(--glow)}
-.nav-links{display:flex;gap:26px;font-size:.9rem}
+.nav-right{display:flex;align-items:center;gap:22px}
+.nav-links{display:flex;gap:24px;font-size:.9rem}
 .nav-links a{color:var(--text-dim)}
 .nav-links a:hover{color:var(--cyan-bright)}
+#langBtn{
+  font-family:'JetBrains Mono',monospace;font-size:.78rem;letter-spacing:.1em;
+  color:var(--cyan);background:rgba(78,201,255,.07);
+  border:1px solid var(--line);border-radius:999px;padding:5px 16px;cursor:pointer;
+  transition:.2s;
+}
+#langBtn:hover{border-color:var(--cyan);box-shadow:0 0 12px rgba(78,201,255,.3)}
 /* ====== HERO ====== */
 header{padding:110px 0 80px;text-align:center;position:relative}
 .hero-badge{
@@ -89,7 +101,7 @@ h1 .grad{
   background:linear-gradient(92deg,var(--cyan) 10%,var(--violet) 90%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
-.hero-sub{color:var(--text-dim);font-size:1.08rem;max-width:620px;margin:22px auto 40px}
+.hero-sub{color:var(--text-dim);font-size:1.08rem;max-width:640px;margin:22px auto 40px}
 .hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
 .btn{
   display:inline-flex;align-items:center;gap:9px;
@@ -145,6 +157,56 @@ h1 .grad{
 .term pre{padding:24px 26px;overflow-x:auto;font-size:.88rem;line-height:1.9;color:#bfe7ff}
 .term .c{color:#5b6b93}
 .term .g{color:var(--green)}
+/* ====== 语言提示条 ====== */
+.note{
+  border:1px solid rgba(255,200,87,.3);background:rgba(255,200,87,.05);
+  border-radius:10px;padding:14px 20px;font-size:.88rem;color:var(--text-dim);
+  margin-top:26px;
+}
+.note b{color:var(--amber)}
+/* ====== 推荐载具 ====== */
+.hw{display:grid;grid-template-columns:340px 1fr;gap:44px;align-items:center}
+@media (max-width:860px){.hw{grid-template-columns:1fr}}
+.hw-visual{display:flex;justify-content:center}
+.hw-box{position:relative;width:280px;height:280px;display:flex;align-items:center;justify-content:center}
+.hw-face{
+  width:210px;height:210px;border-radius:22px;position:relative;z-index:2;
+  background:linear-gradient(145deg,#101832,#070c1d);
+  border:1px solid rgba(78,201,255,.45);
+  box-shadow:var(--glow), inset 0 0 34px rgba(78,201,255,.10);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  animation:hover-float 5s ease-in-out infinite;
+}
+.hw-logo{font-family:'Orbitron';font-weight:900;letter-spacing:.22em;color:#eaf3ff;font-size:1rem}
+.hw-model{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.28em;color:var(--cyan)}
+.hw-leds{display:flex;gap:8px;margin-top:10px}
+.hw-leds i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2.2s infinite}
+.hw-leds i:nth-child(2){background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation-delay:.5s}
+.hw-leds i:nth-child(3){background:var(--violet);box-shadow:0 0 8px var(--violet);animation-delay:1.1s}
+.hw-ring{
+  position:absolute;inset:0;border-radius:50%;
+  border:1px dashed rgba(78,201,255,.35);
+  animation:spin 26s linear infinite;
+}
+.hw-ring::after{
+  content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;border-radius:50%;
+  background:var(--cyan);box-shadow:0 0 12px var(--cyan);
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes hover-float{0%,100%{transform:translateY(-5px)}50%{transform:translateY(5px)}}
+.chip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:10px;margin-bottom:22px}
+.chip{
+  border:1px solid var(--line);border-radius:9px;padding:10px 14px;font-size:.84rem;
+  background:rgba(10,15,34,.55);display:flex;flex-direction:column;gap:1px;
+}
+.chip b{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.2em;color:var(--violet)}
+.tier{width:100%;border-collapse:collapse;font-size:.88rem;margin-bottom:24px}
+.tier th{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.18em;color:var(--cyan);text-align:left;padding:8px 12px;border-bottom:1px solid var(--line)}
+.tier td{padding:9px 12px;border-bottom:1px dashed rgba(123,138,176,.18)}
+.tier td.mono{font-family:'JetBrains Mono',monospace;color:var(--cyan-bright)}
+.hw-cta{display:flex;gap:14px;flex-wrap:wrap}
+.hw-note{font-size:.82rem;color:var(--text-dim);margin-top:16px}
 /* ====== 仓库矩阵 ====== */
 .repo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
 .repo{
@@ -175,12 +237,16 @@ footer .links{display:flex;gap:26px;justify-content:center;margin-bottom:16px;fl
 <nav>
   <div class="wrap nav-in">
     <div class="logo">ROMINDLY<b>·ROS1</b></div>
-    <div class="nav-links">
-      <a href="#route">学习路线</a>
-      <a href="#quickstart">快速开始</a>
-      <a href="#repos">仓库矩阵</a>
-      <a href="https://github.com/Romindly-Dev" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://www.romindly.com/zh" target="_blank" rel="noopener">公司主页</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="#route"><span class="zh">学习路线</span><span class="en">Route</span></a>
+        <a href="#quickstart"><span class="zh">快速开始</span><span class="en">Quick Start</span></a>
+        <a href="#hardware"><span class="zh">推荐载具</span><span class="en">Hardware</span></a>
+        <a href="#repos"><span class="zh">仓库矩阵</span><span class="en">Fleet</span></a>
+        <a href="https://github.com/Romindly-Dev" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.romindly.com/zh" target="_blank" rel="noopener"><span class="zh">公司主页</span><span class="en">Romindly.com</span></a>
+      </div>
+      <button id="langBtn" aria-label="switch language">EN</button>
     </div>
   </div>
 </nav>
@@ -188,20 +254,23 @@ footer .links{display:flex;gap:26px;justify-content:center;margin-bottom:16px;fl
 <header>
   <div class="wrap">
     <div class="hero-badge">EDGE ROBOTICS · UBUNTU 20.04 · ROS NOETIC · x86_64</div>
-    <h1>ROS1 定位 · 导航<br><span class="grad">开源教学舰队</span></h1>
+    <h1>
+      <span class="zh">ROS1 定位 · 导航<br><span class="grad">开源教学舰队</span></span>
+      <span class="en">ROS1 Localization · Navigation<br><span class="grad">Open-Source Teaching Fleet</span></span>
+    </h1>
     <p class="hero-sub">
-      面向 x86 边缘计算单元的全中文 ROS1 教程系列 —— 从零基础到建图、定位、导航实战。
-      每一行示例代码实机编译验证，每一个参数对照源码核实。
+      <span class="zh">面向 x86 边缘计算单元的全中文 ROS1 教程系列 —— 从零基础到建图、定位、导航实战。每一行示例代码实机编译验证，每一个参数对照源码核实。原生载具：<a href="#hardware">Romindly Mind 机器人微型工控机</a>。</span>
+      <span class="en">A hands-on ROS1 tutorial series for x86 edge computing units — from zero to SLAM, localization and navigation. Every example compiles and runs on real hardware; every parameter is verified against the source code. Native carrier: the <a href="#hardware">Romindly Mind robotics micro IPC</a>.</span>
     </p>
     <div class="hero-btns">
-      <a class="btn btn-primary" href="https://github.com/Romindly-Dev/romindly_ros1_workspace" target="_blank" rel="noopener">⟡ 进入总仓库</a>
-      <a class="btn btn-ghost" href="#quickstart">⌁ 三分钟部署</a>
+      <a class="btn btn-primary" href="https://github.com/Romindly-Dev/romindly_ros1_workspace" target="_blank" rel="noopener">⟡ <span class="zh">进入总仓库</span><span class="en">Main Repository</span></a>
+      <a class="btn btn-ghost" href="#quickstart">⌁ <span class="zh">三分钟部署</span><span class="en">Deploy in 3 min</span></a>
     </div>
     <div class="stats">
-      <div class="stat"><div class="num">27</div><div class="lbl">篇中文教程</div></div>
-      <div class="stat"><div class="num">26</div><div class="lbl">开源仓库</div></div>
-      <div class="stat"><div class="num">7</div><div class="lbl">可运行示例包</div></div>
-      <div class="stat"><div class="num">100%</div><div class="lbl">实机编译验证</div></div>
+      <div class="stat"><div class="num">27</div><div class="lbl"><span class="zh">篇中文教程</span><span class="en">TUTORIALS</span></div></div>
+      <div class="stat"><div class="num">26</div><div class="lbl"><span class="zh">开源仓库</span><span class="en">REPOSITORIES</span></div></div>
+      <div class="stat"><div class="num">7</div><div class="lbl"><span class="zh">可运行示例包</span><span class="en">EXAMPLE PACKAGES</span></div></div>
+      <div class="stat"><div class="num">100%</div><div class="lbl"><span class="zh">实机编译验证</span><span class="en">BUILD-VERIFIED</span></div></div>
     </div>
   </div>
 </header>
@@ -209,111 +278,118 @@ footer .links{display:flex;gap:26px;justify-content:center;margin-bottom:16px;fl
 <section id="route">
   <div class="wrap">
     <div class="sec-tag">Flight Route</div>
-    <h2>学习路线</h2>
-    <p class="sec-sub">按章节序号顺序推进：环境 → 基础 → 仿真 → 建图 → 定位 → 导航 → 部署。绿色徽章表示可直接跟做，琥珀色为建造中。</p>
+    <h2><span class="zh">学习路线</span><span class="en">Learning Route</span></h2>
+    <p class="sec-sub">
+      <span class="zh">按章节序号顺序推进：环境 → 基础 → 仿真 → 建图 → 定位 → 导航 → 部署。绿色徽章表示可直接跟做，琥珀色为建造中。</span>
+      <span class="en">Follow the sectors in order: setup → basics → simulation → mapping → localization → navigation → deployment. Green badge = ready to follow; amber = under construction.</span>
+    </p>
     <div class="grid">
 
       <div class="card">
         <div class="ch">SECTOR 00 <span class="badge done">ONLINE</span></div>
-        <h3>环境搭建</h3>
+        <h3><span class="zh">环境搭建</span><span class="en">Environment Setup</span></h3>
         <ul>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/00_环境搭建/01_Ubuntu20.04_ROS_Noetic安装.md">Ubuntu 20.04 + Noetic 安装</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/00_环境搭建/02_工作空间与代码拉取.md">工作空间与代码拉取</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/00_环境搭建/03_常用工具速查.md">常用工具速查</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/00_环境搭建/01_Ubuntu20.04_ROS_Noetic安装.md"><span class="zh">Ubuntu 20.04 + Noetic 安装</span><span class="en">Install Ubuntu 20.04 + Noetic</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/00_环境搭建/02_工作空间与代码拉取.md"><span class="zh">工作空间与代码拉取</span><span class="en">Workspace &amp; Fetching the Code</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/00_环境搭建/03_常用工具速查.md"><span class="zh">常用工具速查</span><span class="en">Everyday Tools Cheatsheet</span></a></li>
         </ul>
       </div>
 
       <div class="card">
         <div class="ch">SECTOR 10 <span class="badge done">ONLINE</span></div>
-        <h3>ROS1 基础</h3>
+        <h3><span class="zh">ROS1 基础</span><span class="en">ROS1 Basics</span></h3>
         <ul>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/01_核心概念总览.md">核心概念总览</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/02_话题通信.md">话题通信</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/03_服务与自定义接口.md">服务与自定义接口</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/04_Action通信.md">Action 通信</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/05_launch与参数服务器.md">launch 与参数服务器</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/06_TF2坐标变换.md">TF2 坐标变换</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/07_URDF机器人建模.md">URDF 机器人建模</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/08_rosbag与调试工具.md">rosbag 与调试工具</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/01_核心概念总览.md"><span class="zh">核心概念总览</span><span class="en">Core Concepts Overview</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/02_话题通信.md"><span class="zh">话题通信</span><span class="en">Topics</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/03_服务与自定义接口.md"><span class="zh">服务与自定义接口</span><span class="en">Services &amp; Custom Interfaces</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/04_Action通信.md"><span class="zh">Action 通信</span><span class="en">Actions</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/05_launch与参数服务器.md"><span class="zh">launch 与参数服务器</span><span class="en">Launch Files &amp; Parameter Server</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/06_TF2坐标变换.md"><span class="zh">TF2 坐标变换</span><span class="en">TF2 Transforms</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/07_URDF机器人建模.md"><span class="zh">URDF 机器人建模</span><span class="en">URDF Robot Modeling</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/08_rosbag与调试工具.md"><span class="zh">rosbag 与调试工具</span><span class="en">rosbag &amp; Debugging Tools</span></a></li>
         </ul>
       </div>
 
       <div class="card">
         <div class="ch">SECTOR 15 <span class="badge done">ONLINE</span></div>
-        <h3>仿真入门</h3>
+        <h3><span class="zh">仿真入门</span><span class="en">Simulation Primer</span></h3>
         <ul>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/15_仿真入门/01_TurtleBot3与Gazebo安装.md">TurtleBot3 与 Gazebo 安装</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/15_仿真入门/02_键盘遥控与话题观察.md">键盘遥控与话题观察</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/15_仿真入门/03_仿真中的TF树与传感器.md">仿真中的 TF 树与传感器</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/15_仿真入门/01_TurtleBot3与Gazebo安装.md"><span class="zh">TurtleBot3 与 Gazebo 安装</span><span class="en">Installing TurtleBot3 &amp; Gazebo</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/15_仿真入门/02_键盘遥控与话题观察.md"><span class="zh">键盘遥控与话题观察</span><span class="en">Teleop &amp; Inspecting Topics</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/15_仿真入门/03_仿真中的TF树与传感器.md"><span class="zh">仿真中的 TF 树与传感器</span><span class="en">TF Tree &amp; Sensors in Simulation</span></a></li>
         </ul>
       </div>
 
       <div class="card">
         <div class="ch">SECTOR 20 <span class="badge done">ONLINE</span></div>
-        <h3>2D 建图</h3>
+        <h3><span class="zh">2D 建图</span><span class="en">2D Mapping</span></h3>
         <ul>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/20_2D建图/01_建图原理与方案选型.md">建图原理与方案选型</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/20_2D建图/02_gmapping实战.md">gmapping 实战</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/20_2D建图/03_hector_slam实战.md">hector_slam 实战</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/20_2D建图/04_slam_toolbox实战.md">slam_toolbox 实战</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/20_2D建图/05_cartographer实战.md">cartographer 实战</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/20_2D建图/01_建图原理与方案选型.md"><span class="zh">建图原理与方案选型</span><span class="en">SLAM Principles &amp; Choosing a Stack</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/20_2D建图/02_gmapping实战.md"><span class="zh">gmapping 实战</span><span class="en">gmapping in Practice</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/20_2D建图/03_hector_slam实战.md"><span class="zh">hector_slam 实战</span><span class="en">hector_slam in Practice</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/20_2D建图/04_slam_toolbox实战.md"><span class="zh">slam_toolbox 实战</span><span class="en">slam_toolbox in Practice</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/20_2D建图/05_cartographer实战.md"><span class="zh">cartographer 实战</span><span class="en">cartographer in Practice</span></a></li>
         </ul>
       </div>
 
       <div class="card">
         <div class="ch">SECTOR 30 <span class="badge done">ONLINE</span></div>
-        <h3>定位</h3>
+        <h3><span class="zh">定位</span><span class="en">Localization</span></h3>
         <ul>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/30_定位/01_AMCL原理与调参.md">AMCL 原理与调参</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/30_定位/02_robot_localization多传感器融合.md">robot_localization 多传感器融合</a></li>
-          <li class="todo">hdl_localization 3D 定位（第三阶段）</li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/30_定位/01_AMCL原理与调参.md"><span class="zh">AMCL 原理与调参</span><span class="en">AMCL: Theory &amp; Tuning</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/30_定位/02_robot_localization多传感器融合.md"><span class="zh">robot_localization 多传感器融合</span><span class="en">Sensor Fusion with robot_localization</span></a></li>
+          <li class="todo"><span class="zh">hdl_localization 3D 定位（第三阶段）</span><span class="en">hdl_localization 3D localization (phase 3)</span></li>
         </ul>
       </div>
 
       <div class="card">
         <div class="ch">SECTOR 40 <span class="badge done">ONLINE</span></div>
-        <h3>导航</h3>
+        <h3><span class="zh">导航</span><span class="en">Navigation</span></h3>
         <ul>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/40_导航/01_move_base架构与快速上手.md">move_base 架构与快速上手</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/40_导航/02_costmap代价地图调参.md">costmap 代价地图调参</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/40_导航/03_DWA与TEB局部规划器.md">DWA 与 TEB 局部规划器</a></li>
-          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/40_导航/04_导航调优清单与常见故障.md">导航调优清单与常见故障</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/40_导航/01_move_base架构与快速上手.md"><span class="zh">move_base 架构与快速上手</span><span class="en">move_base Architecture &amp; Quick Start</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/40_导航/02_costmap代价地图调参.md"><span class="zh">costmap 代价地图调参</span><span class="en">Costmap Tuning</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/40_导航/03_DWA与TEB局部规划器.md"><span class="zh">DWA 与 TEB 局部规划器</span><span class="en">DWA vs TEB Local Planners</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/40_导航/04_导航调优清单与常见故障.md"><span class="zh">导航调优清单与常见故障</span><span class="en">Tuning Checklist &amp; Troubleshooting</span></a></li>
         </ul>
       </div>
 
       <div class="card">
         <div class="ch">SECTOR 25 <span class="badge wip">BUILDING</span></div>
-        <h3>3D 激光 SLAM</h3>
+        <h3><span class="zh">3D 激光 SLAM</span><span class="en">3D LiDAR SLAM</span></h3>
         <ul>
-          <li class="todo">A-LOAM 原理与实战</li>
-          <li class="todo">LIO-SAM 激光惯导紧耦合</li>
-          <li class="todo">FAST-LIO 轻量高效方案</li>
-          <li class="todo">边缘算力评估与选型</li>
+          <li class="todo"><span class="zh">A-LOAM 原理与实战</span><span class="en">A-LOAM: theory &amp; practice</span></li>
+          <li class="todo"><span class="zh">LIO-SAM 激光惯导紧耦合</span><span class="en">LIO-SAM tightly-coupled LiDAR-inertial</span></li>
+          <li class="todo"><span class="zh">FAST-LIO 轻量高效方案</span><span class="en">FAST-LIO lightweight odometry</span></li>
+          <li class="todo"><span class="zh">边缘算力评估与选型</span><span class="en">Edge compute benchmarks &amp; selection</span></li>
         </ul>
       </div>
 
       <div class="card">
         <div class="ch">SECTOR 45 <span class="badge wip">BUILDING</span></div>
-        <h3>传感器驱动</h3>
+        <h3><span class="zh">传感器驱动</span><span class="en">Sensor Drivers</span></h3>
         <ul>
-          <li class="todo">RPLIDAR 2D 激光接入</li>
-          <li class="todo">Velodyne 3D 激光接入</li>
-          <li class="todo">RealSense 深度相机接入</li>
-          <li class="todo">udev 规则固定设备名</li>
+          <li class="todo"><span class="zh">RPLIDAR 2D 激光接入</span><span class="en">RPLIDAR 2D laser bring-up</span></li>
+          <li class="todo"><span class="zh">Velodyne 3D 激光接入</span><span class="en">Velodyne 3D LiDAR bring-up</span></li>
+          <li class="todo"><span class="zh">RealSense 深度相机接入</span><span class="en">RealSense depth camera bring-up</span></li>
+          <li class="todo"><span class="zh">udev 规则固定设备名</span><span class="en">Stable device names via udev rules</span></li>
         </ul>
       </div>
 
       <div class="card">
         <div class="ch">SECTOR 50 <span class="badge wip">BUILDING</span></div>
-        <h3>部署运维</h3>
+        <h3><span class="zh">部署运维</span><span class="en">Deployment &amp; Ops</span></h3>
         <ul>
-          <li class="todo">x86 边缘单元实机部署</li>
-          <li class="todo">Docker 镜像化交付</li>
-          <li class="todo">systemd 开机自启</li>
-          <li class="todo">性能优化与降载</li>
+          <li class="todo"><span class="zh">x86 边缘单元实机部署</span><span class="en">Deploying on x86 edge units</span></li>
+          <li class="todo"><span class="zh">Docker 镜像化交付</span><span class="en">Docker-based delivery</span></li>
+          <li class="todo"><span class="zh">systemd 开机自启</span><span class="en">Autostart with systemd</span></li>
+          <li class="todo"><span class="zh">性能优化与降载</span><span class="en">Performance tuning &amp; load shedding</span></li>
         </ul>
       </div>
 
+    </div>
+    <div class="note">
+      <span class="zh"><b>语言说明：</b>教程正文目前为简体中文，代码注释与命令通用；英文版教程在计划中。</span>
+      <span class="en"><b>Language note:</b> tutorial articles are currently written in Simplified Chinese (commands and code are universal); English translations are on the roadmap.</span>
     </div>
   </div>
 </section>
@@ -321,8 +397,11 @@ footer .links{display:flex;gap:26px;justify-content:center;margin-bottom:16px;fl
 <section id="quickstart">
   <div class="wrap">
     <div class="sec-tag">Launch Sequence</div>
-    <h2>三分钟部署</h2>
-    <p class="sec-sub">已装好 Noetic 的机器上，四步拉起整个舰队。没装 ROS？从 <a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/00_环境搭建/01_Ubuntu20.04_ROS_Noetic安装.md">环境搭建第一篇</a> 开始。</p>
+    <h2><span class="zh">三分钟部署</span><span class="en">Deploy in 3 Minutes</span></h2>
+    <p class="sec-sub">
+      <span class="zh">已装好 Noetic 的机器上，四步拉起整个舰队。没装 ROS？从 <a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/00_环境搭建/01_Ubuntu20.04_ROS_Noetic安装.md">环境搭建第一篇</a> 开始。</span>
+      <span class="en">Four steps to launch the whole fleet on a machine with Noetic installed. No ROS yet? Start from <a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/00_环境搭建/01_Ubuntu20.04_ROS_Noetic安装.md">the first setup tutorial</a>.</span>
+    </p>
     <div class="term">
       <div class="term-bar">
         <div class="dot" style="background:#ff5f57"></div>
@@ -330,22 +409,77 @@ footer .links{display:flex;gap:26px;justify-content:center;margin-bottom:16px;fl
         <div class="dot" style="background:#28c840"></div>
         <span>iot@edge-unit: ~/ws_romindly</span>
       </div>
-      <pre><span class="c"># 1. 建工作空间，克隆总仓库</span>
+      <pre><span class="c"><span class="zh"># 1. 建工作空间，克隆总仓库</span><span class="en"># 1. Create the workspace, clone the main repo</span></span>
 mkdir -p ~/ws_romindly/src &amp;&amp; cd ~/ws_romindly/src
 git clone https://github.com/Romindly-Dev/romindly_ros1_workspace.git
 
-<span class="c"># 2. vcstool 一键拉取全部仓库</span>
+<span class="c"><span class="zh"># 2. vcstool 一键拉取全部仓库</span><span class="en"># 2. Pull the whole fleet with vcstool</span></span>
 cd ~/ws_romindly
 vcs import src &lt; src/romindly_ros1_workspace/ros1.repos
 
-<span class="c"># 3. 装依赖，编译</span>
+<span class="c"><span class="zh"># 3. 装依赖，编译</span><span class="en"># 3. Install dependencies, build</span></span>
 rosdep install --from-paths src --ignore-src -r -y
 catkin_make
 
-<span class="c"># 4. 点火验证</span>
+<span class="c"><span class="zh"># 4. 点火验证</span><span class="en"># 4. Ignition check</span></span>
 source devel/setup.bash
 roslaunch urdf_demo display.launch
-<span class="g"># ✓ RViz 弹出蓝色差速小车 —— 舰队就绪</span></pre>
+<span class="g"><span class="zh"># ✓ RViz 弹出蓝色差速小车 —— 舰队就绪</span><span class="en"># ✓ RViz shows the blue diff-drive robot — fleet ready</span></span></pre>
+    </div>
+  </div>
+</section>
+
+<section id="hardware">
+  <div class="wrap">
+    <div class="sec-tag">Carrier Vehicle</div>
+    <h2><span class="zh">推荐载具 · Romindly Mind</span><span class="en">Recommended Carrier · Romindly Mind</span></h2>
+    <p class="sec-sub">
+      <span class="zh">本教程系列的原生运行平台：Romindly Mind 机器人 / 无人机微型工控机（Micro IPC）。x86_64 架构与本站教程环境完全一致 —— 教程里跑通的，装上就能跑。</span>
+      <span class="en">The native platform of this tutorial series: Romindly Mind, a micro IPC built for robots and drones. Same x86_64 architecture as every tutorial on this site — what works here, works on it out of the box.</span>
+    </p>
+
+    <div class="hw">
+      <div class="hw-visual" aria-hidden="true">
+        <div class="hw-box">
+          <div class="hw-face">
+            <div class="hw-logo">ROMINDLY</div>
+            <div class="hw-model">MIND · MICRO IPC</div>
+            <div class="hw-leds"><i></i><i></i><i></i></div>
+          </div>
+          <div class="hw-ring"></div>
+        </div>
+      </div>
+
+      <div class="hw-info">
+        <div class="chip-grid">
+          <div class="chip"><b>CPU</b><span>Intel N150 / N300 / i3-N305</span></div>
+          <div class="chip"><b><span class="zh">内存/存储</span><span class="en">MEM/STORAGE</span></b><span>DDR5 16GB · eMMC + M.2 NVMe</span></div>
+          <div class="chip"><b>LAN</b><span class="zh">双 2.5G 网口</span><span class="en">Dual 2.5G ports</span></div>
+          <div class="chip"><b><span class="zh">显示</span><span class="en">DISPLAY</span></b><span class="zh">三路 4K@60Hz（双 HDMI + Type-C）</span><span class="en">Triple 4K@60Hz (2×HDMI + Type-C)</span></div>
+          <div class="chip"><b><span class="zh">无线</span><span class="en">WIRELESS</span></b><span>WiFi 6 · BT 5.2</span></div>
+          <div class="chip"><b><span class="zh">形态</span><span class="en">FORM</span></b><span class="zh">微型工控机，机器人/无人机载</span><span class="en">Micro IPC for robots &amp; drones</span></div>
+        </div>
+
+        <table class="tier">
+          <tr>
+            <th><span class="zh">配置</span><span class="en">Tier</span></th>
+            <th><span class="zh">建议任务</span><span class="en">Suggested workload</span></th>
+            <th><span class="zh">对应章节</span><span class="en">Sectors</span></th>
+          </tr>
+          <tr><td class="mono">N150</td><td><span class="zh">2D 建图 / AMCL 定位 / 导航</span><span class="en">2D SLAM / AMCL / navigation</span></td><td>00–40</td></tr>
+          <tr><td class="mono">N300</td><td><span class="zh">多传感器融合 + 完整导航栈</span><span class="en">Sensor fusion + full nav stack</span></td><td>00–45</td></tr>
+          <tr><td class="mono">i3-N305</td><td><span class="zh">3D 激光 SLAM（LIO-SAM / FAST-LIO）</span><span class="en">3D LiDAR SLAM (LIO-SAM / FAST-LIO)</span></td><td><span class="zh">全部</span><span class="en">All</span></td></tr>
+        </table>
+
+        <div class="hw-cta">
+          <a class="btn btn-primary" href="https://www.romindly.com/zh/products/romindly-m1-mini-pc-intel-n150-n300-i3-n305-mini-desktop-computer-dual-2-5g-lan-triple-display-4k-60hz-output-dual-hdmi-type-c-support-wifi6-bt5-2-%E5%89%AF%E6%9C%AC" target="_blank" rel="noopener">⟡ <span class="zh">查看产品 / 购买</span><span class="en">View Product / Buy</span></a>
+          <a class="btn btn-ghost" href="https://www.romindly.com/zh" target="_blank" rel="noopener"><span class="zh">更多硬件 →</span><span class="en">More hardware →</span></a>
+        </div>
+        <p class="hw-note">
+          <span class="zh">双 2.5G 网口 = 一口接激光雷达，一口接车间网络；三路 4K 输出方便产线调试大屏。</span>
+          <span class="en">Dual 2.5G LAN = one port for the LiDAR, one for the shop-floor network; triple 4K output for debugging walls on the line.</span>
+        </p>
+      </div>
     </div>
   </div>
 </section>
@@ -353,35 +487,38 @@ roslaunch urdf_demo display.launch
 <section id="repos">
   <div class="wrap">
     <div class="sec-tag">Fleet Matrix</div>
-    <h2>仓库矩阵</h2>
-    <p class="sec-sub">绿色边框为自建仓库（教程与示例集中地），其余为保留上游出处的 fork。全部锁定 Noetic 可用分支，由 <code>ros1.repos</code> 统一编队。</p>
+    <h2><span class="zh">仓库矩阵</span><span class="en">Fleet Matrix</span></h2>
+    <p class="sec-sub">
+      <span class="zh">绿色边框为自建仓库（教程与示例集中地），其余为保留上游出处的 fork。全部锁定 Noetic 可用分支，由 <code>ros1.repos</code> 统一编队。</span>
+      <span class="en">Green border = repos we author (tutorials &amp; examples live there); the rest are forks that keep their upstream provenance. All pinned to Noetic-compatible branches, marshalled by <code>ros1.repos</code>.</span>
+    </p>
     <div class="repo-grid">
-      <a class="repo own" href="https://github.com/Romindly-Dev/romindly_ros1_workspace"><span class="n">romindly_ros1_workspace</span><span class="t">旗舰 · 教程</span></a>
-      <a class="repo own" href="https://github.com/Romindly-Dev/romindly_ros1_tutorials"><span class="n">romindly_ros1_tutorials</span><span class="t">示例包 ×7</span></a>
-      <a class="repo own" href="https://github.com/Romindly-Dev/romindly_robot_bringup"><span class="n">romindly_robot_bringup</span><span class="t">实机启动</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/turtlebot3"><span class="n">turtlebot3</span><span class="t">仿真</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/turtlebot3_simulations"><span class="n">turtlebot3_simulations</span><span class="t">仿真</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/turtlebot3_msgs"><span class="n">turtlebot3_msgs</span><span class="t">仿真</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/ros_tutorials"><span class="n">ros_tutorials</span><span class="t">基础</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/slam_gmapping"><span class="n">slam_gmapping</span><span class="t">2D 建图</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/openslam_gmapping"><span class="n">openslam_gmapping</span><span class="t">2D 建图</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/hector_slam"><span class="n">hector_slam</span><span class="t">2D 建图</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/slam_toolbox"><span class="n">slam_toolbox</span><span class="t">2D 建图</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/cartographer"><span class="n">cartographer</span><span class="t">2D/3D 建图</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/cartographer_ros"><span class="n">cartographer_ros</span><span class="t">2D/3D 建图</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/robot_localization"><span class="n">robot_localization</span><span class="t">融合定位</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/navigation"><span class="n">navigation</span><span class="t">导航</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/teb_local_planner"><span class="n">teb_local_planner</span><span class="t">导航</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/costmap_converter"><span class="n">costmap_converter</span><span class="t">导航</span></a>
+      <a class="repo own" href="https://github.com/Romindly-Dev/romindly_ros1_workspace"><span class="n">romindly_ros1_workspace</span><span class="t"><span class="zh">旗舰 · 教程</span><span class="en">FLAGSHIP · DOCS</span></span></a>
+      <a class="repo own" href="https://github.com/Romindly-Dev/romindly_ros1_tutorials"><span class="n">romindly_ros1_tutorials</span><span class="t"><span class="zh">示例包 ×7</span><span class="en">EXAMPLES ×7</span></span></a>
+      <a class="repo own" href="https://github.com/Romindly-Dev/romindly_robot_bringup"><span class="n">romindly_robot_bringup</span><span class="t"><span class="zh">实机启动</span><span class="en">BRING-UP</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/turtlebot3"><span class="n">turtlebot3</span><span class="t"><span class="zh">仿真</span><span class="en">SIM</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/turtlebot3_simulations"><span class="n">turtlebot3_simulations</span><span class="t"><span class="zh">仿真</span><span class="en">SIM</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/turtlebot3_msgs"><span class="n">turtlebot3_msgs</span><span class="t"><span class="zh">仿真</span><span class="en">SIM</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/ros_tutorials"><span class="n">ros_tutorials</span><span class="t"><span class="zh">基础</span><span class="en">BASICS</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/slam_gmapping"><span class="n">slam_gmapping</span><span class="t"><span class="zh">2D 建图</span><span class="en">2D SLAM</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/openslam_gmapping"><span class="n">openslam_gmapping</span><span class="t"><span class="zh">2D 建图</span><span class="en">2D SLAM</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/hector_slam"><span class="n">hector_slam</span><span class="t"><span class="zh">2D 建图</span><span class="en">2D SLAM</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/slam_toolbox"><span class="n">slam_toolbox</span><span class="t"><span class="zh">2D 建图</span><span class="en">2D SLAM</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/cartographer"><span class="n">cartographer</span><span class="t"><span class="zh">2D/3D 建图</span><span class="en">2D/3D SLAM</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/cartographer_ros"><span class="n">cartographer_ros</span><span class="t"><span class="zh">2D/3D 建图</span><span class="en">2D/3D SLAM</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/robot_localization"><span class="n">robot_localization</span><span class="t"><span class="zh">融合定位</span><span class="en">FUSION</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/navigation"><span class="n">navigation</span><span class="t"><span class="zh">导航</span><span class="en">NAV</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/teb_local_planner"><span class="n">teb_local_planner</span><span class="t"><span class="zh">导航</span><span class="en">NAV</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/costmap_converter"><span class="n">costmap_converter</span><span class="t"><span class="zh">导航</span><span class="en">NAV</span></span></a>
       <a class="repo" href="https://github.com/Romindly-Dev/A-LOAM"><span class="n">A-LOAM</span><span class="t">3D SLAM</span></a>
       <a class="repo" href="https://github.com/Romindly-Dev/LIO-SAM"><span class="n">LIO-SAM</span><span class="t">3D SLAM</span></a>
       <a class="repo" href="https://github.com/Romindly-Dev/FAST_LIO"><span class="n">FAST_LIO</span><span class="t">3D SLAM</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/hdl_localization"><span class="n">hdl_localization</span><span class="t">3D 定位</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/ndt_omp"><span class="n">ndt_omp</span><span class="t">3D 定位</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/rplidar_ros"><span class="n">rplidar_ros</span><span class="t">驱动</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/velodyne"><span class="n">velodyne</span><span class="t">驱动</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/realsense-ros"><span class="n">realsense-ros</span><span class="t">驱动</span></a>
-      <a class="repo" href="https://github.com/Romindly-Dev/livox_ros_driver"><span class="n">livox_ros_driver</span><span class="t">驱动</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/hdl_localization"><span class="n">hdl_localization</span><span class="t"><span class="zh">3D 定位</span><span class="en">3D LOC</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/ndt_omp"><span class="n">ndt_omp</span><span class="t"><span class="zh">3D 定位</span><span class="en">3D LOC</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/rplidar_ros"><span class="n">rplidar_ros</span><span class="t"><span class="zh">驱动</span><span class="en">DRIVER</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/velodyne"><span class="n">velodyne</span><span class="t"><span class="zh">驱动</span><span class="en">DRIVER</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/realsense-ros"><span class="n">realsense-ros</span><span class="t"><span class="zh">驱动</span><span class="en">DRIVER</span></span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/livox_ros_driver"><span class="n">livox_ros_driver</span><span class="t"><span class="zh">驱动</span><span class="en">DRIVER</span></span></a>
     </div>
   </div>
 </section>
@@ -389,17 +526,37 @@ roslaunch urdf_demo display.launch
 <footer>
   <div class="wrap">
     <div class="links">
-      <a href="https://www.romindly.com/zh" target="_blank" rel="noopener">Romindly 官网</a>
-      <a href="https://github.com/Romindly-Dev" target="_blank" rel="noopener">GitHub 组织</a>
-      <a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docker/README.md" target="_blank" rel="noopener">Docker 部署</a>
+      <a href="https://www.romindly.com/zh" target="_blank" rel="noopener"><span class="zh">Romindly 官网</span><span class="en">Romindly Website</span></a>
+      <a href="https://github.com/Romindly-Dev" target="_blank" rel="noopener"><span class="zh">GitHub 组织</span><span class="en">GitHub Org</span></a>
+      <a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docker/README.md" target="_blank" rel="noopener"><span class="zh">Docker 部署</span><span class="en">Docker Deployment</span></a>
     </div>
-    <p>自建仓库 MIT 协议开源 · Fork 仓库遵循各自上游协议 · ROS Noetic 已 EOL，生产环境建议 Docker 锁定依赖</p>
+    <p>
+      <span class="zh">自建仓库 MIT 协议开源 · Fork 仓库遵循各自上游协议 · ROS Noetic 已 EOL，生产环境建议 Docker 锁定依赖</span>
+      <span class="en">Our repos are MIT-licensed · Forks follow their upstream licenses · ROS Noetic is EOL — pin dependencies with Docker in production</span>
+    </p>
     <p style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:.75rem;opacity:.6">ROMINDLY · OPEN SOURCE PLATFORM FOR EDGE ROBOTICS</p>
   </div>
 </footer>
 
 <script>
-// 星空：静态多层星点 + 缓慢闪烁
+// ====== 中英双语切换 ======
+const btn = document.getElementById('langBtn');
+function applyLang(lang){
+  document.body.classList.toggle('lang-en', lang === 'en');
+  document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+  document.title = lang === 'en'
+    ? 'Romindly ROS1 Academy · Localization & Navigation Tutorials'
+    : 'Romindly ROS1 学院 · 定位导航开源教程';
+  btn.textContent = lang === 'en' ? '中文' : 'EN';
+  try{ localStorage.setItem('lang', lang); }catch(e){}
+}
+let saved = null;
+try{ saved = localStorage.getItem('lang'); }catch(e){}
+applyLang(saved || ((navigator.language || 'zh').toLowerCase().startsWith('zh') ? 'zh' : 'en'));
+btn.addEventListener('click', () =>
+  applyLang(document.body.classList.contains('lang-en') ? 'zh' : 'en'));
+
+// ====== 星空：静态多层星点 + 缓慢闪烁 ======
 const cv = document.getElementById('stars'), ctx = cv.getContext('2d');
 let stars = [];
 function resize(){
