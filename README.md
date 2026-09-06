@@ -2,6 +2,8 @@
 
 ROS1 (Noetic) 定位·导航·基础 学习与部署套件 —— 面向 x86 边缘计算单元。
 
+**🛸 教程总览主页：[romindly-dev.github.io/romindly_ros1_workspace](https://romindly-dev.github.io/romindly_ros1_workspace/)** · 公司官网：[romindly.com/zh](https://www.romindly.com/zh)
+
 本仓库是整个系列的**总入口**：包含全套中文教程、一键拉取所有代码的 `.repos` 文件、Docker 部署方案与 CI。
 
 ## 适用环境
