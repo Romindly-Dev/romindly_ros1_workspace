@@ -1,5 +1,7 @@
 # 02 · A-LOAM 实战
 
+> English version: [02_aloam.md](../en/25_3d_lidar_slam/02_aloam.md)
+
 ## 目标
 
 - 直观理解 LOAM 的两个核心思想：边缘/平面特征、scan-to-scan + scan-to-map 两级优化

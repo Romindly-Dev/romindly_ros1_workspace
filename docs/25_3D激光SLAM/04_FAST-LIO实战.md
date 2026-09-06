@@ -1,5 +1,7 @@
 # 04 · FAST-LIO 实战
 
+> English version: [04_fast_lio.md](../en/25_3d_lidar_slam/04_fast_lio.md)
+
 ## 目标
 
 - 直观理解 FAST-LIO2 的两大杀手锏：迭代误差状态卡尔曼滤波（IEKF）与 ikd-Tree，明白它为什么快、为什么适合 x86 边缘单元

@@ -1,5 +1,7 @@
 # Ubuntu 20.04 安装 ROS Noetic
 
+> English version: [01_install_ubuntu2004_ros_noetic.md](../en/00_setup/01_install_ubuntu2004_ros_noetic.md)
+
 ## 目标
 
 在 x86_64 边缘计算单元（Ubuntu 20.04 Focal）上完成 ROS Noetic 的完整安装，包括 apt 源配置、桌面完整版安装、rosdep 初始化（含国内替代方案）、环境变量配置，并用 turtlesim 验证安装成功。

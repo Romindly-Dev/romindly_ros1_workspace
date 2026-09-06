@@ -1,5 +1,7 @@
 # Romindly ROS1 学习套件 · 文档索引
 
+> English version: [README.md](en/README.md)
+
 面向客户工程师的 ROS1 (Noetic) 实战教程，运行环境统一为 x86_64 边缘计算单元 + Ubuntu 20.04，工作空间路径统一为 `~/ws_romindly`。
 
 ## 学习路线
@@ -14,7 +16,7 @@
 | [30 定位](30_定位/README.md) | AMCL 原理与调参、robot_localization EKF 融合、hdl_localization 3D 定位 | ✅ |
 | [40 导航](40_导航/README.md) | move_base 架构、costmap 调参、DWA vs TEB、导航调优清单 | ✅ |
 | [45 传感器驱动](45_传感器驱动/README.md) | rplidar / velodyne / realsense 接入、udev 规则固定设备名 | ✅ |
-| [50 部署运维](50_部署运维/README.md) | systemd 自启、Docker 部署、多机通信、性能优化 | 🚧 |
+| [50 部署运维](50_部署运维/README.md) | 实机部署清单、systemd 自启、Docker 部署、性能优化与运维 | ✅ |
 
 状态说明：✅ 已完成可直接跟做；🚧 编写中，README 列有该章规划小节。
 

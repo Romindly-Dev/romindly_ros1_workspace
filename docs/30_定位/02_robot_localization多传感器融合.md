@@ -1,5 +1,7 @@
 # 02 robot_localization 多传感器融合
 
+> English version: [02_robot_localization.md](../en/30_localization/02_robot_localization.md)
+
 ## 目标
 
 - 理解为什么单一里程计不够用，多传感器融合解决什么问题；

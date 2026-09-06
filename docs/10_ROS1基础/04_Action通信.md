@@ -1,5 +1,7 @@
 # 04 Action 通信
 
+> English version: [04_actions.md](../en/10_ros1_basics/04_actions.md)
+
 ## 目标
 
 - 理解为什么话题和服务都不适合"长任务"，Action 解决了什么问题

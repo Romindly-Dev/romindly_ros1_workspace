@@ -1,5 +1,7 @@
 # 05 · cartographer 实战
 
+> English version: [05_cartographer.md](../en/20_2d_slam/05_cartographer.md)
+
 ## 目标
 
 - 用 apt 安装 cartographer_ros 并理解其 lua 配置体系
@@ -197,4 +199,4 @@ rosrun cartographer_ros cartographer_offline_node \
 按序尝试：降低 `POSE_GRAPH.constraint_builder.sampling_ratio`（0.3→0.1）、加大 `optimize_every_n_nodes`、关闭 `use_online_correlative_scan_matching`、加大 motion_filter 阈值。
 
 **Q5：想在 cartographer 里做纯定位？**
-lua 中加 `TRAJECTORY_BUILDER.pure_localization_trimmer = { max_submaps_to_keep = 3 }`，启动时用 `-load_state_filename xxx.pbstream`。不过 ROS1 生产定位我们更推荐 AMCL 或 slam_toolbox localization，见 [30_定位](../../30_定位/README.md)。
+lua 中加 `TRAJECTORY_BUILDER.pure_localization_trimmer = { max_submaps_to_keep = 3 }`，启动时用 `-load_state_filename xxx.pbstream`。不过 ROS1 生产定位我们更推荐 AMCL 或 slam_toolbox localization，见 [30_定位](../30_定位/README.md)。

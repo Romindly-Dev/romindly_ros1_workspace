@@ -1,0 +1,123 @@
+# ros1.repos — vcstool 仓库清单
+# 用法: cd ~/ws_romindly && vcs import src < src/romindly_ros1_workspace/ros1.repos
+#
+# 第一阶段仓库已启用；后续阶段的仓库以注释形式预留，fork 完成后取消注释。
+# version 字段锁定分支；实测稳定后将改为锁定具体 commit。
+
+repositories:
+  # ========== 自建仓库 ==========
+  romindly_ros1_tutorials:
+    type: git
+    url: https://github.com/Romindly-Dev/romindly_ros1_tutorials.git
+    version: main
+  romindly_robot_bringup:
+    type: git
+    url: https://github.com/Romindly-Dev/romindly_robot_bringup.git
+    version: main
+
+  # ========== 第一阶段: 基础与仿真 ==========
+  ros_tutorials:
+    type: git
+    url: https://github.com/Romindly-Dev/ros_tutorials.git
+    version: noetic-devel
+  turtlebot3:
+    type: git
+    url: https://github.com/Romindly-Dev/turtlebot3.git
+    version: noetic
+  turtlebot3_msgs:
+    type: git
+    url: https://github.com/Romindly-Dev/turtlebot3_msgs.git
+    version: noetic
+  turtlebot3_simulations:
+    type: git
+    url: https://github.com/Romindly-Dev/turtlebot3_simulations.git
+    version: noetic
+
+  # ========== 第二阶段: 2D 建图 / 定位 / 导航 ==========
+  slam_gmapping:
+    type: git
+    url: https://github.com/Romindly-Dev/slam_gmapping.git
+    version: melodic-devel   # melodic 分支在 noetic 下可正常编译
+  openslam_gmapping:
+    type: git
+    url: https://github.com/Romindly-Dev/openslam_gmapping.git
+    version: melodic-devel
+  hector_slam:
+    type: git
+    url: https://github.com/Romindly-Dev/hector_slam.git
+    version: noetic-devel
+  slam_toolbox:
+    type: git
+    url: https://github.com/Romindly-Dev/slam_toolbox.git
+    version: noetic-devel
+  robot_localization:
+    type: git
+    url: https://github.com/Romindly-Dev/robot_localization.git
+    version: noetic-devel
+  navigation:
+    type: git
+    url: https://github.com/Romindly-Dev/navigation.git
+    version: noetic-devel
+  teb_local_planner:
+    type: git
+    url: https://github.com/Romindly-Dev/teb_local_planner.git
+    version: noetic-devel
+  costmap_converter:
+    type: git
+    url: https://github.com/Romindly-Dev/costmap_converter.git
+    version: master
+
+  # cartographer 源码编译需 catkin_make_isolated + abseil，不放主工作空间。
+  # 学习使用请直接: sudo apt install ros-noetic-cartographer-ros
+  # 源码阅读请看 fork: https://github.com/Romindly-Dev/cartographer
+  #             与    https://github.com/Romindly-Dev/cartographer_ros
+
+  # ========== 第三阶段: 3D SLAM / 传感器驱动 ==========
+  # 注意: FAST_LIO 与 fast_gicp 含子模块，请用 `vcs import --recursive`，
+  #       或导入后执行 `git submodule update --init --recursive`。
+  # 系统依赖: libceres-dev(A-LOAM)、GTSAM PPA(LIO-SAM)、Livox-SDK(livox_ros_driver)，
+  #           安装命令见 docs/25_3D激光SLAM/01 篇。
+  A-LOAM:
+    type: git
+    url: https://github.com/Romindly-Dev/A-LOAM.git
+    version: devel   # 本 fork 已含 Noetic 适配补丁 (C++14 / OpenCV4)
+  LIO-SAM:
+    type: git
+    url: https://github.com/Romindly-Dev/LIO-SAM.git
+    version: master
+  FAST_LIO:
+    type: git
+    url: https://github.com/Romindly-Dev/FAST_LIO.git
+    version: main
+  hdl_localization:
+    type: git
+    url: https://github.com/Romindly-Dev/hdl_localization.git
+    version: master
+  ndt_omp:
+    type: git
+    url: https://github.com/Romindly-Dev/ndt_omp.git
+    version: master
+  fast_gicp:
+    type: git
+    url: https://github.com/Romindly-Dev/fast_gicp.git
+    version: master
+  hdl_global_localization:
+    type: git
+    url: https://github.com/Romindly-Dev/hdl_global_localization.git
+    version: master
+  livox_ros_driver:
+    type: git
+    url: https://github.com/Romindly-Dev/livox_ros_driver.git
+    version: master
+  rplidar_ros:
+    type: git
+    url: https://github.com/Romindly-Dev/rplidar_ros.git
+    version: master
+  velodyne:
+    type: git
+    url: https://github.com/Romindly-Dev/velodyne.git
+    version: melodic-devel   # ROS1 分支 (默认分支已是 ros2)
+
+  # realsense-ros 源码编译需 librealsense2 SDK，学习使用请直接:
+  #   sudo apt install ros-noetic-realsense2-camera ros-noetic-realsense2-description
+  # 源码阅读请看 fork (ros1-legacy 分支): https://github.com/Romindly-Dev/realsense-ros

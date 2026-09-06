@@ -1,5 +1,7 @@
 # 02 Velodyne 与 Livox 接入
 
+> English version: [02_velodyne_and_livox.md](../en/45_sensor_drivers/02_velodyne_and_livox.md)
+
 ## 目标
 
 - Velodyne VLP-16（3D 机械式）：以太网直连 Romindly Mind，跑通 `VLP16_points.launch`，验证 `/velodyne_points`。

@@ -1,5 +1,7 @@
 # 10 ROS1 基础
 
+> English version: [README.md](../en/10_ros1_basics/README.md)
+
 配套代码仓库：[romindly_ros1_tutorials](https://github.com/Romindly-Dev/romindly_ros1_tutorials)，建议按序号顺序学习。
 
 | 篇 | 内容 | 配套包 |

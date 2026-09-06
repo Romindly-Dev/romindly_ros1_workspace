@@ -1,5 +1,7 @@
 # 05 launch 与参数服务器
 
+> English version: [05_launch_and_parameters.md](../en/10_ros1_basics/05_launch_and_parameters.md)
+
 ## 目标
 
 - 理解 roslaunch 相比 rosrun 的价值，掌握 launch 文件的常用标签

@@ -1,5 +1,7 @@
 # 01 RPLIDAR 接入
 
+> English version: [01_rplidar.md](../en/45_sensor_drivers/01_rplidar.md)
+
 ## 目标
 
 - 把思岚 RPLIDAR（A1/A2/A3/S/C 系列）通过 USB 串口接到 Romindly Mind，编译 `rplidar_ros` 并发布 `/scan`。

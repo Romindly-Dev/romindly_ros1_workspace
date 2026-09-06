@@ -1,5 +1,7 @@
 # 03 · hector_slam 实战
 
+> English version: [03_hector_slam.md](../en/20_2d_slam/03_hector_slam.md)
+
 ## 目标
 
 - 理解 hector_slam 无里程计建图的原理与适用边界

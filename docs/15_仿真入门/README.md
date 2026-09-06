@@ -1,5 +1,7 @@
 # 15 仿真入门
 
+> English version: [README.md](../en/15_simulation/README.md)
+
 为什么先学仿真：没有实体机器人也能在 Gazebo 里完整走通**建图 → 定位 → 导航**全流程，后续 20/30/40 章的所有实验都在这套 TurtleBot3 仿真环境上进行，学会后再原样迁移到实机。
 
 ## 本章内容

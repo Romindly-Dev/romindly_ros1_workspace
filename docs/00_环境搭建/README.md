@@ -1,5 +1,7 @@
 # 00 环境搭建
 
+> English version: [README.md](../en/00_setup/README.md)
+
 | 篇 | 内容 |
 |---|---|
 | [01 Ubuntu 20.04 + ROS Noetic 安装](01_Ubuntu20.04_ROS_Noetic安装.md) | apt 源、desktop-full、rosdep/rosdepc、验证 |

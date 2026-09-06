@@ -1,5 +1,7 @@
 # 01 move_base 架构与快速上手
 
+> English version: [01_move_base.md](../en/40_navigation/01_move_base.md)
+
 ## 目标
 
 - 理解 move_base 的完整数据流：目标输入 → 全局规划 → 局部控制 → 恢复行为。

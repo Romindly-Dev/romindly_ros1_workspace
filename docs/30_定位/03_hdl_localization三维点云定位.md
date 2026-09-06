@@ -1,5 +1,7 @@
 # 03 hdl_localization 三维点云定位
 
+> English version: [03_hdl_localization.md](../en/30_localization/03_hdl_localization.md)
+
 ## 目标
 
 - 理解 hdl_localization 的工作原理：在**已有 3D 点云地图**（[25 章 3D 激光 SLAM](../25_3D激光SLAM/README.md) 输出的 PCD 文件）中做实时定位，并与 2D AMCL 建立类比；

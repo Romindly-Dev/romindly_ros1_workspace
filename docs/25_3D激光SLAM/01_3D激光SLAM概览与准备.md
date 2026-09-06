@@ -1,5 +1,7 @@
 # 01 · 3D 激光 SLAM 概览与准备
 
+> English version: [01_overview_and_setup.md](../en/25_3d_lidar_slam/01_overview_and_setup.md)
+
 ## 目标
 
 - 理解 3D 激光 SLAM 与 2D 建图的本质区别（地图形式、状态自由度、算力需求）

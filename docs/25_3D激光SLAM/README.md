@@ -1,5 +1,7 @@
 # 25 · 3D 激光 SLAM
 
+> English version: [README.md](../en/25_3d_lidar_slam/README.md)
+
 本章面向多线激光雷达（16 线及以上机械式、Livox 固态）场景，讲解三种代表性 3D SLAM 方案的原理与实战：A-LOAM（纯激光特征法）、LIO-SAM（因子图紧耦合）、FAST-LIO（迭代卡尔曼紧耦合）。学完本章后，你应能在 Romindly Mind 上用公开数据集跑通三套方案，理解各自的传感器要求与参数体系，并能根据硬件条件完成选型。
 
 ## 前置要求

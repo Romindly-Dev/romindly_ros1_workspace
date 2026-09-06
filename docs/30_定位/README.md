@@ -1,5 +1,7 @@
 # 30 定位
 
+> English version: [README.md](../en/30_localization/README.md)
+
 本章解决"机器人在**已知地图**中知道自己在哪"的问题，覆盖 2D 概率定位、多传感器融合与 3D 点云定位三条技术路线。
 
 ## 本章内容

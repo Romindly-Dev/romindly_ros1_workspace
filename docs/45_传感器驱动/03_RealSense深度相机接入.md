@@ -1,5 +1,7 @@
 # 03 RealSense 深度相机接入
 
+> English version: [03_realsense.md](../en/45_sensor_drivers/03_realsense.md)
+
 ## 目标
 
 - 用 apt 二进制包在 Romindly Mind 上装好 `realsense2_camera`，启动 D435i/D455 等 D400 系列相机。

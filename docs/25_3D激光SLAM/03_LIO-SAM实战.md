@@ -1,5 +1,7 @@
 # 03 · LIO-SAM 实战
 
+> English version: [03_lio_sam.md](../en/25_3d_lidar_slam/03_lio_sam.md)
+
 ## 目标
 
 - 理解因子图框架下的四类约束因子（IMU 预积分、激光里程计、GPS、回环）

@@ -1,5 +1,7 @@
 # 07 URDF 机器人建模
 
+> English version: [07_urdf_modeling.md](../en/10_ros1_basics/07_urdf_modeling.md)
+
 ## 目标
 
 - 理解 URDF 的 link/joint 模型与常用 joint 类型

@@ -1,5 +1,7 @@
 # 04 udev 规则与设备管理
 
+> English version: [04_udev_and_device_management.md](../en/45_sensor_drivers/04_udev_and_device_management.md)
+
 ## 目标
 
 - 理解串口设备名漂移的原因，用 udev 规则为 RPLIDAR、IMU、底盘串口生成固定软链 `/dev/rplidar`、`/dev/imu`、`/dev/base_serial`。

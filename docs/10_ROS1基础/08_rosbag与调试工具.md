@@ -1,5 +1,7 @@
 # 08 rosbag 与调试工具
 
+> English version: [08_rosbag_and_debugging.md](../en/10_ros1_basics/08_rosbag_and_debugging.md)
+
 ## 目标
 
 - 掌握 `rosbag record / info / play` 的常用参数，完成一次录制与回放

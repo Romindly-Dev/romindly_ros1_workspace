@@ -4,6 +4,8 @@ ROS1 (Noetic) 定位·导航·基础 学习与部署套件 —— 面向 x86 边
 
 **🛸 教程总览主页：[romindly-dev.github.io/romindly_ros1_workspace](https://romindly-dev.github.io/romindly_ros1_workspace/)** · 公司官网：[romindly.com/zh](https://www.romindly.com/zh)
 
+**🌐 双语教程 / Bilingual docs**：中文从 [docs/](docs/) 开始，English starts at [docs/en/](docs/en/README.md)。全部 38 篇教程均有中英两版，文内可互相跳转。
+
 本仓库是整个系列的**总入口**：包含全套中文教程、一键拉取所有代码的 `.repos` 文件、Docker 部署方案与 CI。
 
 ## 适用环境
@@ -48,7 +50,7 @@ roslaunch urdf_demo display.launch   # 应弹出 RViz 并显示差速小车模�
 | [30 定位](docs/30_定位/) | AMCL、robot_localization 多传感器融合、hdl_localization | ✅ |
 | [40 导航](docs/40_导航/) | move_base 架构、costmap、DWA vs TEB 调参 | ✅ |
 | [45 传感器驱动](docs/45_传感器驱动/) | 激光雷达 / 深度相机 / IMU 实机接入 | ✅ |
-| [50 部署运维](docs/50_部署运维/) | 实机部署、Docker、开机自启、性能优化 | 🚧 |
+| [50 部署运维](docs/50_部署运维/) | 实机部署、Docker、开机自启、性能优化 | ✅ |
 
 ## 仓库总览
 

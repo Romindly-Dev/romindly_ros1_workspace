@@ -1,5 +1,7 @@
 # 02 · gmapping 实战
 
+> English version: [02_gmapping.md](../en/20_2d_slam/02_gmapping.md)
+
 ## 目标
 
 - 在 TurtleBot3 仿真中用 gmapping 完成一次完整建图并保存地图

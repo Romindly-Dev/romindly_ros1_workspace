@@ -1,5 +1,7 @@
 # 01 TurtleBot3 与 Gazebo 安装
 
+> English version: [01_turtlebot3_gazebo_install.md](../en/15_simulation/01_turtlebot3_gazebo_install.md)
+
 ## 目标
 
 - 确认 Gazebo 11 已随 desktop-full 安装并能正常启动

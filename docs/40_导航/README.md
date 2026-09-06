@@ -1,5 +1,7 @@
 # 40 导航
 
+> English version: [README.md](../en/40_navigation/README.md)
+
 本章围绕 ROS1 Noetic 导航栈（navigation stack）展开：从 move_base 架构、代价地图调参，到局部规划器选型与系统化调优清单。目标是让你能在 TurtleBot3 仿真中跑通完整导航流程，并具备把同一套方法迁移到实机底盘的能力。
 
 ## 本章小节

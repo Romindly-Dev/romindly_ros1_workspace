@@ -1,11 +1,13 @@
 # 04 · slam_toolbox 实战
 
+> English version: [04_slam_toolbox.md](../en/20_2d_slam/04_slam_toolbox.md)
+
 ## 目标
 
 - 理解 slam_toolbox 被定位为"产品化首选"的原因，及其五种工作模式
 - 区分 sync / async 两种节点并完成一次仿真建图
 - 掌握 `.posegraph` 序列化地图与 `map_saver` 静态地图的区别与各自用途
-- 了解纯定位模式，为 [30_定位](../../30_定位/README.md) 做铺垫
+- 了解纯定位模式，为 [30_定位](../30_定位/README.md) 做铺垫
 
 ## 原理简介
 

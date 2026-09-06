@@ -1,5 +1,7 @@
 # 45 传感器驱动
 
+> English version: [README.md](../en/45_sensor_drivers/README.md)
+
 前面的章节（20 2D 建图、25 3D 激光 SLAM、30 定位、40 导航）大多可以在仿真或公开数据集上完成。本章解决"从仿真走向实机"的第一步：把真实传感器接到边缘计算单元 **Romindly Mind**（Ubuntu 20.04 / ROS Noetic / x86_64）上，装好驱动、验证话题、固定设备名，为跑通实机建图定位导航打好地基。
 
 ## 本章内容

@@ -1,5 +1,7 @@
 # 03 DWA 与 TEB 局部规划器
 
+> English version: [03_dwa_and_teb.md](../en/40_navigation/03_dwa_and_teb.md)
+
 ## 目标
 
 - 直观理解 DWA（采样评分）与 TEB（弹性带优化）两种局部规划思路的本质差异。

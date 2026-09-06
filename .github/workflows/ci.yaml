@@ -1,4 +1,4 @@
-# CI: 在 ros:noetic 容器中编译全套第一阶段仓库，保证教程代码始终可编译
+# CI: 在 ros:noetic 容器中编译全部三阶段仓库，保证教程代码始终可编译
 name: build
 
 on:
@@ -13,18 +13,45 @@ jobs:
     runs-on: ubuntu-latest
     container: ros:noetic-ros-base-focal
     steps:
+      - name: Fix rotated ROS apt key (2025 key rotation)
+        shell: bash
+        run: |
+          apt-get update || true
+          apt-get install -y --no-install-recommends curl ca-certificates
+          curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
+            -o /usr/share/keyrings/ros1-latest-archive-keyring.gpg
+          chmod 644 /usr/share/keyrings/ros1-latest-archive-keyring.gpg
+          cp /usr/share/keyrings/ros1-latest-archive-keyring.gpg /etc/apt/trusted.gpg.d/ros-latest.gpg
+          apt-get update
+
       - uses: actions/checkout@v4
         with:
           path: ws/src/romindly_ros1_workspace
 
-      - name: Import repos
+      - name: Import repos (with submodules)
         shell: bash
         run: |
-          apt-get update && apt-get install -y python3-vcstool git
+          apt-get install -y --no-install-recommends python3-vcstool git
           cd ws
-          vcs import src < src/romindly_ros1_workspace/ros1.repos
+          vcs import --recursive src < src/romindly_ros1_workspace/ros1.repos
 
-      - name: Install dependencies
+      - name: Install system dependencies (phase 2/3)
+        shell: bash
+        run: |
+          apt-get install -y --no-install-recommends \
+            build-essential cmake software-properties-common \
+            libsdl1.2-dev libsdl-image1.2-dev libnetpbm10-dev qt5-image-formats-plugins \
+            ros-noetic-libg2o ros-noetic-mbf-costmap-core ros-noetic-mbf-msgs \
+            ros-noetic-sparse-bundle-adjustment libceres-dev
+          add-apt-repository -y ppa:borglab/gtsam-release-4.0
+          apt-get update
+          apt-get install -y --no-install-recommends libgtsam-dev libgtsam-unstable-dev
+          git clone --depth 1 https://github.com/Livox-SDK/Livox-SDK.git /tmp/Livox-SDK
+          cmake -S /tmp/Livox-SDK -B /tmp/Livox-SDK/build -DCMAKE_BUILD_TYPE=Release
+          make -C /tmp/Livox-SDK/build -j"$(nproc)"
+          make -C /tmp/Livox-SDK/build install
+
+      - name: Install rosdep dependencies
         shell: bash
         run: |
           cd ws
@@ -36,4 +63,4 @@ jobs:
         run: |
           source /opt/ros/noetic/setup.bash
           cd ws
-          catkin_make
+          catkin_make -j"$(nproc)"
