@@ -33,47 +33,44 @@ repositories:
     url: https://github.com/Romindly-Dev/turtlebot3_simulations.git
     version: noetic
 
-  # ========== 第二阶段: 2D 建图 / 定位 / 导航 (fork 后取消注释) ==========
-  # slam_gmapping:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/slam_gmapping.git
-  #   version: melodic-devel
-  # openslam_gmapping:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/openslam_gmapping.git
-  #   version: melodic-devel
-  # hector_slam:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/hector_slam.git
-  #   version: noetic-devel
-  # cartographer:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/cartographer.git
-  #   version: master
-  # cartographer_ros:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/cartographer_ros.git
-  #   version: master
-  # slam_toolbox:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/slam_toolbox.git
-  #   version: noetic-devel
-  # robot_localization:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/robot_localization.git
-  #   version: noetic-devel
-  # navigation:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/navigation.git
-  #   version: noetic-devel
-  # teb_local_planner:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/teb_local_planner.git
-  #   version: noetic-devel
-  # costmap_converter:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/costmap_converter.git
-  #   version: master
+  # ========== 第二阶段: 2D 建图 / 定位 / 导航 ==========
+  slam_gmapping:
+    type: git
+    url: https://github.com/Romindly-Dev/slam_gmapping.git
+    version: melodic-devel   # melodic 分支在 noetic 下可正常编译
+  openslam_gmapping:
+    type: git
+    url: https://github.com/Romindly-Dev/openslam_gmapping.git
+    version: melodic-devel
+  hector_slam:
+    type: git
+    url: https://github.com/Romindly-Dev/hector_slam.git
+    version: noetic-devel
+  slam_toolbox:
+    type: git
+    url: https://github.com/Romindly-Dev/slam_toolbox.git
+    version: noetic-devel
+  robot_localization:
+    type: git
+    url: https://github.com/Romindly-Dev/robot_localization.git
+    version: noetic-devel
+  navigation:
+    type: git
+    url: https://github.com/Romindly-Dev/navigation.git
+    version: noetic-devel
+  teb_local_planner:
+    type: git
+    url: https://github.com/Romindly-Dev/teb_local_planner.git
+    version: noetic-devel
+  costmap_converter:
+    type: git
+    url: https://github.com/Romindly-Dev/costmap_converter.git
+    version: master
+
+  # cartographer 源码编译需 catkin_make_isolated + abseil，不放主工作空间。
+  # 学习使用请直接: sudo apt install ros-noetic-cartographer-ros
+  # 源码阅读请看 fork: https://github.com/Romindly-Dev/cartographer
+  #             与    https://github.com/Romindly-Dev/cartographer_ros
 
   # ========== 第三阶段: 3D SLAM / 传感器驱动 (fork 后取消注释) ==========
   # A-LOAM:
