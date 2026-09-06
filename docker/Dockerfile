@@ -51,7 +51,7 @@ WORKDIR /root/ws_romindly
 COPY ros1.repos /root/ws_romindly/
 RUN git config --global http.postBuffer 524288000 && mkdir -p src && \
     (vcs import --recursive src < ros1.repos || vcs import --recursive src < ros1.repos) && \
-    vcs custom --args submodule update --init --recursive -- src
+    vcs custom src --args submodule update --init --recursive
 
 # 安装 rosdep 依赖并编译
 # 注意: Noetic 已 EOL, rosdep update 必须加 --include-eol-distros, 否则解析不到任何 ROS 包
