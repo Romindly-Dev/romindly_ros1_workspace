@@ -44,10 +44,10 @@ roslaunch urdf_demo display.launch   # 应弹出 RViz 并显示差速小车模�
 | [10 ROS1 基础](docs/10_ROS1基础/) | 话题、服务、Action、TF2、URDF、launch、rosbag | ✅ |
 | [15 仿真入门](docs/15_仿真入门/) | TurtleBot3 + Gazebo 仿真环境 | ✅ |
 | [20 2D 建图](docs/20_2D建图/) | gmapping / hector / cartographer / slam_toolbox 对比与调参 | ✅ |
-| [25 3D 激光 SLAM](docs/25_3D激光SLAM/) | A-LOAM / LIO-SAM / FAST-LIO 实战 | 🚧 |
+| [25 3D 激光 SLAM](docs/25_3D激光SLAM/) | A-LOAM / LIO-SAM / FAST-LIO 实战 | ✅ |
 | [30 定位](docs/30_定位/) | AMCL、robot_localization 多传感器融合、hdl_localization | ✅ |
 | [40 导航](docs/40_导航/) | move_base 架构、costmap、DWA vs TEB 调参 | ✅ |
-| [45 传感器驱动](docs/45_传感器驱动/) | 激光雷达 / 深度相机 / IMU 实机接入 | 🚧 |
+| [45 传感器驱动](docs/45_传感器驱动/) | 激光雷达 / 深度相机 / IMU 实机接入 | ✅ |
 | [50 部署运维](docs/50_部署运维/) | 实机部署、Docker、开机自启、性能优化 | 🚧 |
 
 ## 仓库总览
@@ -72,16 +72,19 @@ roslaunch urdf_demo display.launch   # 应弹出 RViz 并显示差速小车模�
 | 2D 建图 | hector_slam | tu-darmstadt-ros-pkg |
 | 2D 建图 | cartographer / cartographer_ros | cartographer-project |
 | 2D 建图 | slam_toolbox | SteveMacenski |
-| 3D SLAM | A-LOAM | HKUST-Aerial-Robotics |
-| 3D SLAM | LIO-SAM | TixiaoShan |
-| 3D SLAM | FAST_LIO | hku-mars |
-| 3D 定位 | hdl_localization / ndt_omp | koide3 |
+| 3D SLAM | A-LOAM ¹ | HKUST-Aerial-Robotics |
+| 3D SLAM | LIO-SAM ¹ | TixiaoShan |
+| 3D SLAM | FAST_LIO ¹ | hku-mars |
+| 3D 定位 | hdl_localization / ndt_omp / fast_gicp / hdl_global_localization | koide3 |
 | 融合定位 | robot_localization | cra-ros-pkg |
 | 导航 | navigation | ros-planning |
 | 导航 | teb_local_planner / costmap_converter | rst-tu-dortmund |
 | 驱动 | rplidar_ros | Slamtec |
 | 驱动 | velodyne | ros-drivers |
+| 驱动 | livox_ros_driver | Livox-SDK |
 | 驱动 | realsense-ros | IntelRealSense |
+
+> ¹ 这三个 fork 已包含 Noetic 编译适配补丁（C++14 / OpenCV4 / 并行编译依赖修复），上游原版在 Ubuntu 20.04 下无法直接编译——这正是使用本组织 fork 的价值。
 
 ## Docker
 

@@ -8,7 +8,7 @@
 | --- | --- | --- | --- |
 | 01 | [AMCL 原理与调参](01_AMCL原理与调参.md) | 蒙特卡洛粒子滤波定位：粒子云收敛、TF 链、全局重定位、调参表 | ✅ 可学习 |
 | 02 | [robot_localization 多传感器融合](02_robot_localization多传感器融合.md) | EKF 融合轮式里程计与 IMU、双 EKF 架构、与 AMCL 的配合 | ✅ 可学习 |
-| 03 | hdl_localization 3D 点云定位 | 基于 NDT/GICP 的点云地图定位、3D 初始位姿给定 | 🚧 第三阶段编写 |
+| 03 | [hdl_localization 三维点云定位](03_hdl_localization三维点云定位.md) | 基于 NDT/GICP 的点云地图定位、3D 初始位姿给定 | ✅ 可学习 |
 
 ## 概念区分：建图时定位 vs 已知地图定位
 
