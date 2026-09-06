@@ -104,6 +104,13 @@ h1{
 h1 .grad{
   background:linear-gradient(92deg,var(--cyan) 10%,var(--violet) 90%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:hue-drift 9s ease-in-out infinite;
+}
+@keyframes hue-drift{0%,100%{filter:hue-rotate(0deg) brightness(1)}45%{filter:hue-rotate(-18deg) brightness(1.15)}55%{filter:hue-rotate(-14deg) brightness(.95)}}
+h1{animation:title-flicker 7s linear infinite}
+@keyframes title-flicker{
+  0%,93%,95.5%,100%{opacity:1}
+  94%{opacity:.75}95%{opacity:.92}
 }
 .hero-sub{color:var(--text-dim);font-size:1.08rem;max-width:640px;margin:22px auto 40px}
 .hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
@@ -168,6 +175,73 @@ h1 .grad{
   margin-top:26px;
 }
 .note b{color:var(--amber)}
+/* ====== 一核多栖 (多平台轨道) ====== */
+#platforms{overflow:hidden}
+.orbit-stage{
+  position:relative;width:min(560px,92vw);height:min(560px,92vw);
+  margin:10px auto 0;
+}
+.radar{
+  position:absolute;inset:6%;border-radius:50%;
+  background:conic-gradient(from 0deg, rgba(78,201,255,.20), transparent 22%);
+  animation:spin 7s linear infinite;
+  -webkit-mask:radial-gradient(circle, transparent 24%, #000 25%);
+  mask:radial-gradient(circle, transparent 24%, #000 25%);
+  opacity:.5;
+}
+.ring{position:absolute;border-radius:50%;border:1px dashed rgba(78,201,255,.30)}
+.ring.r1{inset:6%}
+.ring.r2{inset:22%;border-color:rgba(167,139,250,.22)}
+.core{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:31%;aspect-ratio:1/1;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  background:radial-gradient(circle at 38% 32%, #16224a, #060b1c 70%);
+  border:1px solid rgba(78,201,255,.55);
+  box-shadow:0 0 34px rgba(78,201,255,.35), inset 0 0 30px rgba(78,201,255,.14);
+  animation:core-pulse 3.6s ease-in-out infinite;
+  text-align:center;z-index:3;
+}
+.core b{font-family:'Orbitron';letter-spacing:.2em;color:#eaf3ff;font-size:clamp(.8rem,2.6vw,1.1rem)}
+.core small{font-family:'JetBrains Mono',monospace;font-size:clamp(.5rem,1.7vw,.66rem);color:var(--cyan);letter-spacing:.14em}
+.core em{font-style:normal;font-size:clamp(.5rem,1.6vw,.62rem);color:var(--text-dim)}
+@keyframes core-pulse{0%,100%{box-shadow:0 0 26px rgba(78,201,255,.30), inset 0 0 26px rgba(78,201,255,.12)}50%{box-shadow:0 0 48px rgba(78,201,255,.55), inset 0 0 40px rgba(78,201,255,.20)}}
+.orbiter{position:absolute;inset:6%;animation:spin 46s linear infinite}
+.node{
+  position:absolute;top:50%;left:50%;width:0;height:0;
+}
+.node .pod{
+  transform:translate(-50%,-50%);
+  animation:spin 46s linear infinite reverse;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  width:max-content;
+}
+.node .ic{
+  width:52px;height:52px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:1.45rem;
+  background:rgba(10,15,34,.92);border:1px solid rgba(78,201,255,.45);
+  box-shadow:0 0 16px rgba(78,201,255,.25);
+}
+.node .lb{
+  font-size:.72rem;color:var(--text);background:rgba(4,6,15,.75);
+  border:1px solid rgba(123,138,176,.25);border-radius:999px;padding:2px 10px;
+  font-family:'JetBrains Mono',monospace;letter-spacing:.06em;white-space:nowrap;
+}
+/* 5 个节点角度分布 */
+.node.n1{transform:rotate(270deg) translate(min(26.5vw,235px)) rotate(-270deg)}
+.node.n2{transform:rotate(342deg) translate(min(26.5vw,235px)) rotate(-342deg)}
+.node.n3{transform:rotate(54deg)  translate(min(26.5vw,235px)) rotate(-54deg)}
+.node.n4{transform:rotate(126deg) translate(min(26.5vw,235px)) rotate(-126deg)}
+.node.n5{transform:rotate(198deg) translate(min(26.5vw,235px)) rotate(-198deg)}
+.platform-facts{
+  display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:26px;
+  font-family:'JetBrains Mono',monospace;font-size:.74rem;letter-spacing:.16em;color:var(--text-dim);
+}
+.platform-facts span b{color:var(--cyan)}
+@media (max-width:640px){
+  .node .ic{width:42px;height:42px;font-size:1.15rem}
+  .node .lb{font-size:.6rem;padding:2px 7px}
+}
 /* ====== 推荐载具 ====== */
 .hw{display:grid;grid-template-columns:360px 1fr;gap:44px;align-items:start}
 @media (max-width:860px){.hw{grid-template-columns:1fr}}
@@ -181,6 +255,34 @@ h1 .grad{
 }
 .hw-photo:hover{box-shadow:0 0 30px rgba(78,201,255,.55);transform:translateY(-3px)}
 .hw-photo img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
+/* HUD 四角括号 + 扫描线 */
+.hw-photo::before{
+  content:"";position:absolute;inset:10px;pointer-events:none;z-index:2;
+  background:
+    linear-gradient(var(--cyan),var(--cyan)) top left/22px 2px,
+    linear-gradient(var(--cyan),var(--cyan)) top left/2px 22px,
+    linear-gradient(var(--cyan),var(--cyan)) top right/22px 2px,
+    linear-gradient(var(--cyan),var(--cyan)) top right/2px 22px,
+    linear-gradient(var(--cyan),var(--cyan)) bottom left/22px 2px,
+    linear-gradient(var(--cyan),var(--cyan)) bottom left/2px 22px,
+    linear-gradient(var(--cyan),var(--cyan)) bottom right/22px 2px,
+    linear-gradient(var(--cyan),var(--cyan)) bottom right/2px 22px;
+  background-repeat:no-repeat;opacity:.85;
+}
+.hw-photo::after{
+  content:"";position:absolute;left:0;right:0;top:-20%;height:18%;pointer-events:none;z-index:2;
+  background:linear-gradient(180deg,transparent,rgba(78,201,255,.16),transparent);
+  animation:scan-sweep 4.5s ease-in-out infinite;
+}
+@keyframes scan-sweep{0%{top:-20%}55%,100%{top:105%}}
+.mini-strip{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;
+  margin-bottom:18px;
+}
+.mini-strip div{background:var(--bg2);padding:12px 8px;text-align:center}
+.mini-strip b{font-family:'Orbitron';font-size:1.02rem;color:var(--cyan);display:block}
+.mini-strip span{font-size:.68rem;color:var(--text-dim);letter-spacing:.12em}
 .hw-thumbs{display:flex;gap:10px}
 .hw-thumbs img{
   width:calc((100% - 20px)/3);aspect-ratio:1/1;object-fit:cover;
@@ -270,6 +372,7 @@ footer .links{display:flex;gap:26px;justify-content:center;margin-bottom:16px;fl
     <div class="logo">ROMINDLY<b>·ROS1</b></div>
     <div class="nav-right">
       <div class="nav-links">
+        <a href="#platforms"><span class="zh">多平台</span><span class="en">Platforms</span></a>
         <a href="#route"><span class="zh">学习路线</span><span class="en">Route</span></a>
         <a href="#quickstart"><span class="zh">快速开始</span><span class="en">Quick Start</span></a>
         <a href="#hardware"><span class="zh">推荐载具</span><span class="en">Hardware</span></a>
@@ -285,7 +388,7 @@ footer .links{display:flex;gap:26px;justify-content:center;margin-bottom:16px;fl
 
 <header>
   <div class="wrap">
-    <div class="hero-badge">EDGE ROBOTICS · UBUNTU 20.04 · ROS NOETIC · x86_64</div>
+    <div class="hero-badge">PALM-SIZE x86 CORE · UAV / AMR / AGV · ROS NOETIC</div>
     <h1>
       <span class="zh">ROS1 定位 · 导航<br><span class="grad">开源教学舰队</span></span>
       <span class="en">ROS1 Localization · Navigation<br><span class="grad">Open-Source Teaching Fleet</span></span>
@@ -299,13 +402,48 @@ footer .links{display:flex;gap:26px;justify-content:center;margin-bottom:16px;fl
       <a class="btn btn-ghost" href="#quickstart">⌁ <span class="zh">三分钟部署</span><span class="en">Deploy in 3 min</span></a>
     </div>
     <div class="stats">
-      <div class="stat"><div class="num">34</div><div class="lbl"><span class="zh">篇中文教程</span><span class="en">TUTORIALS</span></div></div>
+      <div class="stat"><div class="num">38</div><div class="lbl"><span class="zh">篇双语教程</span><span class="en">BILINGUAL TUTORIALS</span></div></div>
       <div class="stat"><div class="num">28</div><div class="lbl"><span class="zh">开源仓库</span><span class="en">REPOSITORIES</span></div></div>
       <div class="stat"><div class="num">7</div><div class="lbl"><span class="zh">可运行示例包</span><span class="en">EXAMPLE PACKAGES</span></div></div>
       <div class="stat"><div class="num">100%</div><div class="lbl"><span class="zh">实机编译验证</span><span class="en">BUILD-VERIFIED</span></div></div>
     </div>
   </div>
 </header>
+
+<section id="platforms">
+  <div class="wrap">
+    <div class="sec-tag">Multi-Platform Core</div>
+    <h2><span class="zh">一核多栖 · 掌心级算力</span><span class="en">One Core, Every Platform · Palm-Sized</span></h2>
+    <p class="sec-sub" style="margin-bottom:0">
+      <span class="zh">75×75×48.5mm、350g 的掌心级机身，同一颗核心挂载到无人机、AMR、AGV 与巡检机器人上 —— 本站教程与 Docker 镜像在所有平台通用，学一次，处处部署。</span>
+      <span class="en">A palm-sized 75×75×48.5&nbsp;mm, 350&nbsp;g core that mounts on drones, AMRs, AGVs and inspection robots — every tutorial and Docker image on this site runs unchanged across all of them. Learn once, deploy everywhere.</span>
+    </p>
+
+    <div class="orbit-stage" aria-hidden="true">
+      <div class="radar"></div>
+      <div class="ring r1"></div>
+      <div class="ring r2"></div>
+      <div class="core">
+        <b>MIND</b>
+        <small>75×75×48.5 mm</small>
+        <em>350 g · x86_64</em>
+      </div>
+      <div class="orbiter">
+        <div class="node n1"><div class="pod"><div class="ic">🚁</div><div class="lb"><span class="zh">无人机 UAV</span><span class="en">UAV / Drone</span></div></div></div>
+        <div class="node n2"><div class="pod"><div class="ic">🤖</div><div class="lb"><span class="zh">AMR 移动机器人</span><span class="en">AMR</span></div></div></div>
+        <div class="node n3"><div class="pod"><div class="ic">📦</div><div class="lb"><span class="zh">AGV 物流</span><span class="en">AGV / Logistics</span></div></div></div>
+        <div class="node n4"><div class="pod"><div class="ic">🛰️</div><div class="lb"><span class="zh">巡检机器人</span><span class="en">Inspection</span></div></div></div>
+        <div class="node n5"><div class="pod"><div class="ic">🎓</div><div class="lb"><span class="zh">教学科研</span><span class="en">Education &amp; Research</span></div></div></div>
+      </div>
+    </div>
+
+    <div class="platform-facts">
+      <span><b>0~180°</b> <span class="zh">核心板翻转适配异形舱体</span><span class="en">core-board rotation for irregular hulls</span></span>
+      <span><b>GH1.25</b> <span class="zh">抗振端子适应机载环境</span><span class="en">vibration-proof connectors</span></span>
+      <span><b>DC 12~19V</b> <span class="zh">宽压直上动力电池</span><span class="en">wide input, battery-ready</span></span>
+    </div>
+  </div>
+</section>
 
 <section id="route">
   <div class="wrap">
@@ -408,13 +546,13 @@ footer .links{display:flex;gap:26px;justify-content:center;margin-bottom:16px;fl
       </div>
 
       <div class="card">
-        <div class="ch">SECTOR 50 <span class="badge wip">BUILDING</span></div>
+        <div class="ch">SECTOR 50 <span class="badge done">ONLINE</span></div>
         <h3><span class="zh">部署运维</span><span class="en">Deployment &amp; Ops</span></h3>
         <ul>
-          <li class="todo"><span class="zh">x86 边缘单元实机部署</span><span class="en">Deploying on x86 edge units</span></li>
-          <li class="todo"><span class="zh">Docker 镜像化交付</span><span class="en">Docker-based delivery</span></li>
-          <li class="todo"><span class="zh">systemd 开机自启</span><span class="en">Autostart with systemd</span></li>
-          <li class="todo"><span class="zh">性能优化与降载</span><span class="en">Performance tuning &amp; load shedding</span></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/50_部署运维/01_实机部署清单.md"><span class="zh">实机部署清单</span><span class="en">Deployment Checklist</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/50_部署运维/02_systemd开机自启.md"><span class="zh">systemd 开机自启</span><span class="en">Autostart with systemd</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/50_部署运维/03_Docker部署.md"><span class="zh">Docker 部署</span><span class="en">Docker Deployment</span></a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/50_部署运维/04_性能优化与运维.md"><span class="zh">性能优化与运维</span><span class="en">Performance &amp; Ops</span></a></li>
         </ul>
       </div>
 
@@ -485,6 +623,12 @@ roslaunch urdf_demo display.launch
       </div>
 
       <div class="hw-info">
+        <div class="mini-strip">
+          <div><b>75×75×48.5</b><span class="zh">mm 整机</span><span class="en">mm FULL UNIT</span></div>
+          <div><b>350 g</b><span class="zh">整机重量</span><span class="en">WEIGHT</span></div>
+          <div><b>68×68×26</b><span class="zh">mm 核心板 168g</span><span class="en">mm CORE 168g</span></div>
+          <div><b><span class="zh">掌心级</span><span class="en">PALM-SIZE</span></b><span class="zh">机载/嵌入两相宜</span><span class="en">ONBOARD / EMBEDDED</span></div>
+        </div>
         <div class="chip-grid">
           <div class="chip"><b>CPU</b><span>Intel N150 / N300 / i3-N305</span></div>
           <div class="chip"><b><span class="zh">内存/存储</span><span class="en">MEM/STORAGE</span></b><span>LPDDR5 8/16GB · eMMC 128GB + M.2 NVMe</span></div>
@@ -579,6 +723,60 @@ roslaunch urdf_demo display.launch
 <script>
 // ====== 中英双语切换 ======
 const btn = document.getElementById('langBtn');
+// 中文教程路径 -> 英文版路径（docs/ 之后的部分）
+const EN_DOCS = {
+  '00_环境搭建/01_Ubuntu20.04_ROS_Noetic安装.md':'en/00_setup/01_install_ubuntu2004_ros_noetic.md',
+  '00_环境搭建/02_工作空间与代码拉取.md':'en/00_setup/02_workspace_and_code.md',
+  '00_环境搭建/03_常用工具速查.md':'en/00_setup/03_tools_cheatsheet.md',
+  '10_ROS1基础/01_核心概念总览.md':'en/10_ros1_basics/01_core_concepts.md',
+  '10_ROS1基础/02_话题通信.md':'en/10_ros1_basics/02_topics.md',
+  '10_ROS1基础/03_服务与自定义接口.md':'en/10_ros1_basics/03_services_and_custom_interfaces.md',
+  '10_ROS1基础/04_Action通信.md':'en/10_ros1_basics/04_actions.md',
+  '10_ROS1基础/05_launch与参数服务器.md':'en/10_ros1_basics/05_launch_and_parameters.md',
+  '10_ROS1基础/06_TF2坐标变换.md':'en/10_ros1_basics/06_tf2_transforms.md',
+  '10_ROS1基础/07_URDF机器人建模.md':'en/10_ros1_basics/07_urdf_modeling.md',
+  '10_ROS1基础/08_rosbag与调试工具.md':'en/10_ros1_basics/08_rosbag_and_debugging.md',
+  '15_仿真入门/01_TurtleBot3与Gazebo安装.md':'en/15_simulation/01_turtlebot3_gazebo_install.md',
+  '15_仿真入门/02_键盘遥控与话题观察.md':'en/15_simulation/02_teleop_and_topics.md',
+  '15_仿真入门/03_仿真中的TF树与传感器.md':'en/15_simulation/03_tf_and_sensors_in_sim.md',
+  '20_2D建图/01_建图原理与方案选型.md':'en/20_2d_slam/01_principles_and_selection.md',
+  '20_2D建图/02_gmapping实战.md':'en/20_2d_slam/02_gmapping.md',
+  '20_2D建图/03_hector_slam实战.md':'en/20_2d_slam/03_hector_slam.md',
+  '20_2D建图/04_slam_toolbox实战.md':'en/20_2d_slam/04_slam_toolbox.md',
+  '20_2D建图/05_cartographer实战.md':'en/20_2d_slam/05_cartographer.md',
+  '25_3D激光SLAM/01_3D激光SLAM概览与准备.md':'en/25_3d_lidar_slam/01_overview_and_setup.md',
+  '25_3D激光SLAM/02_A-LOAM实战.md':'en/25_3d_lidar_slam/02_aloam.md',
+  '25_3D激光SLAM/03_LIO-SAM实战.md':'en/25_3d_lidar_slam/03_lio_sam.md',
+  '25_3D激光SLAM/04_FAST-LIO实战.md':'en/25_3d_lidar_slam/04_fast_lio.md',
+  '30_定位/01_AMCL原理与调参.md':'en/30_localization/01_amcl.md',
+  '30_定位/02_robot_localization多传感器融合.md':'en/30_localization/02_robot_localization.md',
+  '30_定位/03_hdl_localization三维点云定位.md':'en/30_localization/03_hdl_localization.md',
+  '40_导航/01_move_base架构与快速上手.md':'en/40_navigation/01_move_base.md',
+  '40_导航/02_costmap代价地图调参.md':'en/40_navigation/02_costmap_tuning.md',
+  '40_导航/03_DWA与TEB局部规划器.md':'en/40_navigation/03_dwa_and_teb.md',
+  '40_导航/04_导航调优清单与常见故障.md':'en/40_navigation/04_tuning_and_troubleshooting.md',
+  '45_传感器驱动/01_RPLIDAR接入.md':'en/45_sensor_drivers/01_rplidar.md',
+  '45_传感器驱动/02_Velodyne与Livox接入.md':'en/45_sensor_drivers/02_velodyne_and_livox.md',
+  '45_传感器驱动/03_RealSense深度相机接入.md':'en/45_sensor_drivers/03_realsense.md',
+  '45_传感器驱动/04_udev规则与设备管理.md':'en/45_sensor_drivers/04_udev_and_device_management.md',
+  '50_部署运维/01_实机部署清单.md':'en/50_deployment/01_deployment_checklist.md',
+  '50_部署运维/02_systemd开机自启.md':'en/50_deployment/02_systemd_autostart.md',
+  '50_部署运维/03_Docker部署.md':'en/50_deployment/03_docker_deployment.md',
+  '50_部署运维/04_性能优化与运维.md':'en/50_deployment/04_performance_and_ops.md',
+};
+function swapDocLinks(lang){
+  document.querySelectorAll('a[href*="/blob/main/docs/"]').forEach(a => {
+    if(!a.dataset.zhHref) a.dataset.zhHref = a.getAttribute('href');
+    const orig = a.dataset.zhHref;
+    if(lang === 'en'){
+      const parts = orig.split('/blob/main/docs/');
+      const en = parts[1] && EN_DOCS[parts[1]];
+      if(en) a.setAttribute('href', parts[0] + '/blob/main/docs/' + en);
+    } else {
+      a.setAttribute('href', orig);
+    }
+  });
+}
 function applyLang(lang){
   document.body.classList.toggle('lang-en', lang === 'en');
   document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
@@ -586,6 +784,7 @@ function applyLang(lang){
     ? 'Romindly ROS1 Academy · Localization & Navigation Tutorials'
     : 'Romindly ROS1 学院 · 定位导航开源教程';
   btn.textContent = lang === 'en' ? '中文' : 'EN';
+  swapDocLinks(lang);
   try{ localStorage.setItem('lang', lang); }catch(e){}
 }
 let saved = null;
