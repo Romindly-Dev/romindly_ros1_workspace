@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Romindly ROS1 学院 · 定位导航开源教程</title>
+<meta name="description" content="面向 x86 边缘计算单元的 ROS1 定位·导航·基础中文开源教程系列，由 Romindly 维护。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#04060f;
+  --bg2:#0a0f22;
+  --panel:rgba(14,22,48,.72);
+  --line:rgba(78,201,255,.22);
+  --cyan:#4ec9ff;
+  --cyan-bright:#8ee3ff;
+  --violet:#a78bfa;
+  --green:#3ddc97;
+  --amber:#ffc857;
+  --text:#c9d6f2;
+  --text-dim:#7b8ab0;
+  --glow:0 0 18px rgba(78,201,255,.35), 0 0 42px rgba(78,201,255,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Noto Sans SC',sans-serif;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+/* ====== 星空与网格背景 ====== */
+#stars{position:fixed;inset:0;z-index:-2}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% -8%, rgba(78,201,255,.14), transparent 60%),
+    radial-gradient(ellipse 45% 35% at 88% 68%, rgba(167,139,250,.10), transparent 65%),
+    linear-gradient(rgba(78,201,255,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(78,201,255,.045) 1px, transparent 1px);
+  background-size:100% 100%,100% 100%,56px 56px,56px 56px;
+  mask-image:linear-gradient(#000 62%, transparent);
+  -webkit-mask-image:linear-gradient(#000 62%, transparent);
+}
+/* ====== 通用 ====== */
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+a{color:var(--cyan);text-decoration:none;transition:.2s}
+a:hover{color:var(--cyan-bright)}
+h1,h2,h3,.mono{font-family:'Orbitron','Noto Sans SC',sans-serif}
+code,pre{font-family:'JetBrains Mono',monospace}
+section{padding:72px 0}
+.sec-tag{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace;font-size:.8rem;letter-spacing:.35em;
+  color:var(--cyan);text-transform:uppercase;margin-bottom:14px;
+}
+.sec-tag::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--cyan))}
+h2{font-size:1.9rem;font-weight:700;color:#eaf3ff;margin-bottom:10px;letter-spacing:.04em}
+.sec-sub{color:var(--text-dim);max-width:640px;margin-bottom:40px}
+/* ====== 顶栏 ====== */
+nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(4,6,15,.82);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-family:'Orbitron';font-weight:900;font-size:1.05rem;letter-spacing:.18em;color:#eaf3ff}
+.logo b{color:var(--cyan);text-shadow:var(--glow)}
+.nav-links{display:flex;gap:26px;font-size:.9rem}
+.nav-links a{color:var(--text-dim)}
+.nav-links a:hover{color:var(--cyan-bright)}
+/* ====== HERO ====== */
+header{padding:110px 0 80px;text-align:center;position:relative}
+.hero-badge{
+  display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.78rem;
+  border:1px solid var(--line);border-radius:999px;padding:6px 18px;
+  color:var(--cyan);letter-spacing:.22em;margin-bottom:28px;
+  background:rgba(78,201,255,.06);box-shadow:inset 0 0 24px rgba(78,201,255,.06);
+}
+h1{
+  font-size:clamp(2.1rem,5.4vw,3.6rem);font-weight:900;letter-spacing:.06em;
+  color:#f2f8ff;line-height:1.25;
+  text-shadow:0 0 32px rgba(78,201,255,.30);
+}
+h1 .grad{
+  background:linear-gradient(92deg,var(--cyan) 10%,var(--violet) 90%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero-sub{color:var(--text-dim);font-size:1.08rem;max-width:620px;margin:22px auto 40px}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:12px 28px;border-radius:8px;font-weight:500;font-size:.95rem;
+  border:1px solid var(--cyan);transition:.25s;
+}
+.btn-primary{background:linear-gradient(120deg,rgba(78,201,255,.18),rgba(167,139,250,.16));color:#eaf7ff;box-shadow:var(--glow)}
+.btn-primary:hover{box-shadow:0 0 26px rgba(78,201,255,.55);transform:translateY(-2px);color:#fff}
+.btn-ghost{border-color:rgba(123,138,176,.4);color:var(--text-dim)}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan-bright)}
+/* ====== 数据条 ====== */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:70px}
+.stat{background:var(--bg2);padding:26px 12px;text-align:center}
+.stat .num{font-family:'Orbitron';font-size:2rem;font-weight:700;color:var(--cyan);text-shadow:var(--glow)}
+.stat .lbl{font-size:.82rem;color:var(--text-dim);letter-spacing:.12em;margin-top:4px}
+/* ====== 章节卡片 ====== */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:26px 26px 20px;position:relative;overflow:hidden;
+  transition:.3s;backdrop-filter:blur(6px);
+}
+.card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  opacity:.55;
+}
+.card:hover{transform:translateY(-4px);border-color:rgba(78,201,255,.55);box-shadow:var(--glow)}
+.card .ch{
+  font-family:'Orbitron';font-size:.78rem;letter-spacing:.3em;color:var(--violet);
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;
+}
+.badge{font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:2px 10px;border-radius:999px;letter-spacing:.1em}
+.badge.done{color:var(--green);border:1px solid rgba(61,220,151,.4);background:rgba(61,220,151,.08)}
+.badge.wip{color:var(--amber);border:1px solid rgba(255,200,87,.4);background:rgba(255,200,87,.07)}
+.card h3{font-size:1.18rem;color:#eaf3ff;margin-bottom:14px;letter-spacing:.03em}
+.card ul{list-style:none}
+.card li{padding:6px 0;border-top:1px dashed rgba(123,138,176,.18);font-size:.92rem}
+.card li:first-child{border-top:none}
+.card li a{color:var(--text);display:flex;gap:9px;align-items:baseline}
+.card li a:hover{color:var(--cyan-bright)}
+.card li a::before{content:"▸";color:var(--cyan);font-size:.8rem}
+.card li.todo{color:var(--text-dim);font-size:.88rem}
+.card li.todo::before{content:"◇ ";color:var(--amber)}
+/* ====== 快速开始 ====== */
+.term{
+  background:#060a18;border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  box-shadow:0 10px 50px rgba(0,0,0,.5);
+}
+.term-bar{display:flex;align-items:center;gap:8px;padding:12px 18px;border-bottom:1px solid var(--line);background:rgba(78,201,255,.05)}
+.dot{width:11px;height:11px;border-radius:50%}
+.term-bar span{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--text-dim);margin-left:10px}
+.term pre{padding:24px 26px;overflow-x:auto;font-size:.88rem;line-height:1.9;color:#bfe7ff}
+.term .c{color:#5b6b93}
+.term .g{color:var(--green)}
+/* ====== 仓库矩阵 ====== */
+.repo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.repo{
+  border:1px solid rgba(123,138,176,.22);border-radius:9px;padding:13px 16px;
+  font-size:.86rem;background:rgba(10,15,34,.55);transition:.2s;
+  display:flex;justify-content:space-between;gap:8px;align-items:center;
+}
+.repo:hover{border-color:var(--cyan);box-shadow:0 0 14px rgba(78,201,255,.18)}
+.repo .n{font-family:'JetBrains Mono',monospace;color:var(--text)}
+.repo:hover .n{color:var(--cyan-bright)}
+.repo .t{font-size:.68rem;color:var(--text-dim);letter-spacing:.08em;white-space:nowrap}
+.repo.own{border-color:rgba(61,220,151,.35)}
+.repo.own .t{color:var(--green)}
+/* ====== 页脚 ====== */
+footer{border-top:1px solid var(--line);padding:44px 0 60px;text-align:center;color:var(--text-dim);font-size:.88rem}
+footer .links{display:flex;gap:26px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.scan{position:fixed;inset:0;z-index:60;pointer-events:none;background:repeating-linear-gradient(transparent 0 3px,rgba(0,0,0,.06) 3px 4px);opacity:.5}
+@media (max-width:640px){
+  .nav-links{display:none}
+  section{padding:52px 0}
+}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div class="scan"></div>
+
+<nav>
+  <div class="wrap nav-in">
+    <div class="logo">ROMINDLY<b>·ROS1</b></div>
+    <div class="nav-links">
+      <a href="#route">学习路线</a>
+      <a href="#quickstart">快速开始</a>
+      <a href="#repos">仓库矩阵</a>
+      <a href="https://github.com/Romindly-Dev" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.romindly.com/zh" target="_blank" rel="noopener">公司主页</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="hero-badge">EDGE ROBOTICS · UBUNTU 20.04 · ROS NOETIC · x86_64</div>
+    <h1>ROS1 定位 · 导航<br><span class="grad">开源教学舰队</span></h1>
+    <p class="hero-sub">
+      面向 x86 边缘计算单元的全中文 ROS1 教程系列 —— 从零基础到建图、定位、导航实战。
+      每一行示例代码实机编译验证，每一个参数对照源码核实。
+    </p>
+    <div class="hero-btns">
+      <a class="btn btn-primary" href="https://github.com/Romindly-Dev/romindly_ros1_workspace" target="_blank" rel="noopener">⟡ 进入总仓库</a>
+      <a class="btn btn-ghost" href="#quickstart">⌁ 三分钟部署</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">27</div><div class="lbl">篇中文教程</div></div>
+      <div class="stat"><div class="num">26</div><div class="lbl">开源仓库</div></div>
+      <div class="stat"><div class="num">7</div><div class="lbl">可运行示例包</div></div>
+      <div class="stat"><div class="num">100%</div><div class="lbl">实机编译验证</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="route">
+  <div class="wrap">
+    <div class="sec-tag">Flight Route</div>
+    <h2>学习路线</h2>
+    <p class="sec-sub">按章节序号顺序推进：环境 → 基础 → 仿真 → 建图 → 定位 → 导航 → 部署。绿色徽章表示可直接跟做，琥珀色为建造中。</p>
+    <div class="grid">
+
+      <div class="card">
+        <div class="ch">SECTOR 00 <span class="badge done">ONLINE</span></div>
+        <h3>环境搭建</h3>
+        <ul>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/00_环境搭建/01_Ubuntu20.04_ROS_Noetic安装.md">Ubuntu 20.04 + Noetic 安装</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/00_环境搭建/02_工作空间与代码拉取.md">工作空间与代码拉取</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/00_环境搭建/03_常用工具速查.md">常用工具速查</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ch">SECTOR 10 <span class="badge done">ONLINE</span></div>
+        <h3>ROS1 基础</h3>
+        <ul>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/01_核心概念总览.md">核心概念总览</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/02_话题通信.md">话题通信</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/03_服务与自定义接口.md">服务与自定义接口</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/04_Action通信.md">Action 通信</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/05_launch与参数服务器.md">launch 与参数服务器</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/06_TF2坐标变换.md">TF2 坐标变换</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/07_URDF机器人建模.md">URDF 机器人建模</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/10_ROS1基础/08_rosbag与调试工具.md">rosbag 与调试工具</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ch">SECTOR 15 <span class="badge done">ONLINE</span></div>
+        <h3>仿真入门</h3>
+        <ul>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/15_仿真入门/01_TurtleBot3与Gazebo安装.md">TurtleBot3 与 Gazebo 安装</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/15_仿真入门/02_键盘遥控与话题观察.md">键盘遥控与话题观察</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/15_仿真入门/03_仿真中的TF树与传感器.md">仿真中的 TF 树与传感器</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ch">SECTOR 20 <span class="badge done">ONLINE</span></div>
+        <h3>2D 建图</h3>
+        <ul>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/20_2D建图/01_建图原理与方案选型.md">建图原理与方案选型</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/20_2D建图/02_gmapping实战.md">gmapping 实战</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/20_2D建图/03_hector_slam实战.md">hector_slam 实战</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/20_2D建图/04_slam_toolbox实战.md">slam_toolbox 实战</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/20_2D建图/05_cartographer实战.md">cartographer 实战</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ch">SECTOR 30 <span class="badge done">ONLINE</span></div>
+        <h3>定位</h3>
+        <ul>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/30_定位/01_AMCL原理与调参.md">AMCL 原理与调参</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/30_定位/02_robot_localization多传感器融合.md">robot_localization 多传感器融合</a></li>
+          <li class="todo">hdl_localization 3D 定位（第三阶段）</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ch">SECTOR 40 <span class="badge done">ONLINE</span></div>
+        <h3>导航</h3>
+        <ul>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/40_导航/01_move_base架构与快速上手.md">move_base 架构与快速上手</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/40_导航/02_costmap代价地图调参.md">costmap 代价地图调参</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/40_导航/03_DWA与TEB局部规划器.md">DWA 与 TEB 局部规划器</a></li>
+          <li><a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/40_导航/04_导航调优清单与常见故障.md">导航调优清单与常见故障</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ch">SECTOR 25 <span class="badge wip">BUILDING</span></div>
+        <h3>3D 激光 SLAM</h3>
+        <ul>
+          <li class="todo">A-LOAM 原理与实战</li>
+          <li class="todo">LIO-SAM 激光惯导紧耦合</li>
+          <li class="todo">FAST-LIO 轻量高效方案</li>
+          <li class="todo">边缘算力评估与选型</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ch">SECTOR 45 <span class="badge wip">BUILDING</span></div>
+        <h3>传感器驱动</h3>
+        <ul>
+          <li class="todo">RPLIDAR 2D 激光接入</li>
+          <li class="todo">Velodyne 3D 激光接入</li>
+          <li class="todo">RealSense 深度相机接入</li>
+          <li class="todo">udev 规则固定设备名</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ch">SECTOR 50 <span class="badge wip">BUILDING</span></div>
+        <h3>部署运维</h3>
+        <ul>
+          <li class="todo">x86 边缘单元实机部署</li>
+          <li class="todo">Docker 镜像化交付</li>
+          <li class="todo">systemd 开机自启</li>
+          <li class="todo">性能优化与降载</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="quickstart">
+  <div class="wrap">
+    <div class="sec-tag">Launch Sequence</div>
+    <h2>三分钟部署</h2>
+    <p class="sec-sub">已装好 Noetic 的机器上，四步拉起整个舰队。没装 ROS？从 <a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docs/00_环境搭建/01_Ubuntu20.04_ROS_Noetic安装.md">环境搭建第一篇</a> 开始。</p>
+    <div class="term">
+      <div class="term-bar">
+        <div class="dot" style="background:#ff5f57"></div>
+        <div class="dot" style="background:#ffbd2e"></div>
+        <div class="dot" style="background:#28c840"></div>
+        <span>iot@edge-unit: ~/ws_romindly</span>
+      </div>
+      <pre><span class="c"># 1. 建工作空间，克隆总仓库</span>
+mkdir -p ~/ws_romindly/src &amp;&amp; cd ~/ws_romindly/src
+git clone https://github.com/Romindly-Dev/romindly_ros1_workspace.git
+
+<span class="c"># 2. vcstool 一键拉取全部仓库</span>
+cd ~/ws_romindly
+vcs import src &lt; src/romindly_ros1_workspace/ros1.repos
+
+<span class="c"># 3. 装依赖，编译</span>
+rosdep install --from-paths src --ignore-src -r -y
+catkin_make
+
+<span class="c"># 4. 点火验证</span>
+source devel/setup.bash
+roslaunch urdf_demo display.launch
+<span class="g"># ✓ RViz 弹出蓝色差速小车 —— 舰队就绪</span></pre>
+    </div>
+  </div>
+</section>
+
+<section id="repos">
+  <div class="wrap">
+    <div class="sec-tag">Fleet Matrix</div>
+    <h2>仓库矩阵</h2>
+    <p class="sec-sub">绿色边框为自建仓库（教程与示例集中地），其余为保留上游出处的 fork。全部锁定 Noetic 可用分支，由 <code>ros1.repos</code> 统一编队。</p>
+    <div class="repo-grid">
+      <a class="repo own" href="https://github.com/Romindly-Dev/romindly_ros1_workspace"><span class="n">romindly_ros1_workspace</span><span class="t">旗舰 · 教程</span></a>
+      <a class="repo own" href="https://github.com/Romindly-Dev/romindly_ros1_tutorials"><span class="n">romindly_ros1_tutorials</span><span class="t">示例包 ×7</span></a>
+      <a class="repo own" href="https://github.com/Romindly-Dev/romindly_robot_bringup"><span class="n">romindly_robot_bringup</span><span class="t">实机启动</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/turtlebot3"><span class="n">turtlebot3</span><span class="t">仿真</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/turtlebot3_simulations"><span class="n">turtlebot3_simulations</span><span class="t">仿真</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/turtlebot3_msgs"><span class="n">turtlebot3_msgs</span><span class="t">仿真</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/ros_tutorials"><span class="n">ros_tutorials</span><span class="t">基础</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/slam_gmapping"><span class="n">slam_gmapping</span><span class="t">2D 建图</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/openslam_gmapping"><span class="n">openslam_gmapping</span><span class="t">2D 建图</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/hector_slam"><span class="n">hector_slam</span><span class="t">2D 建图</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/slam_toolbox"><span class="n">slam_toolbox</span><span class="t">2D 建图</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/cartographer"><span class="n">cartographer</span><span class="t">2D/3D 建图</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/cartographer_ros"><span class="n">cartographer_ros</span><span class="t">2D/3D 建图</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/robot_localization"><span class="n">robot_localization</span><span class="t">融合定位</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/navigation"><span class="n">navigation</span><span class="t">导航</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/teb_local_planner"><span class="n">teb_local_planner</span><span class="t">导航</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/costmap_converter"><span class="n">costmap_converter</span><span class="t">导航</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/A-LOAM"><span class="n">A-LOAM</span><span class="t">3D SLAM</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/LIO-SAM"><span class="n">LIO-SAM</span><span class="t">3D SLAM</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/FAST_LIO"><span class="n">FAST_LIO</span><span class="t">3D SLAM</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/hdl_localization"><span class="n">hdl_localization</span><span class="t">3D 定位</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/ndt_omp"><span class="n">ndt_omp</span><span class="t">3D 定位</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/rplidar_ros"><span class="n">rplidar_ros</span><span class="t">驱动</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/velodyne"><span class="n">velodyne</span><span class="t">驱动</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/realsense-ros"><span class="n">realsense-ros</span><span class="t">驱动</span></a>
+      <a class="repo" href="https://github.com/Romindly-Dev/livox_ros_driver"><span class="n">livox_ros_driver</span><span class="t">驱动</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="https://www.romindly.com/zh" target="_blank" rel="noopener">Romindly 官网</a>
+      <a href="https://github.com/Romindly-Dev" target="_blank" rel="noopener">GitHub 组织</a>
+      <a href="https://github.com/Romindly-Dev/romindly_ros1_workspace/blob/main/docker/README.md" target="_blank" rel="noopener">Docker 部署</a>
+    </div>
+    <p>自建仓库 MIT 协议开源 · Fork 仓库遵循各自上游协议 · ROS Noetic 已 EOL，生产环境建议 Docker 锁定依赖</p>
+    <p style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:.75rem;opacity:.6">ROMINDLY · OPEN SOURCE PLATFORM FOR EDGE ROBOTICS</p>
+  </div>
+</footer>
+
+<script>
+// 星空：静态多层星点 + 缓慢闪烁
+const cv = document.getElementById('stars'), ctx = cv.getContext('2d');
+let stars = [];
+function resize(){
+  cv.width = innerWidth; cv.height = innerHeight;
+  stars = Array.from({length: Math.min(220, innerWidth/6)}, () => ({
+    x: Math.random()*cv.width,
+    y: Math.random()*cv.height,
+    r: Math.random()*1.4 + .3,
+    p: Math.random()*Math.PI*2,
+    s: .4 + Math.random()*1.2
+  }));
+}
+addEventListener('resize', resize); resize();
+(function tick(t){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  for(const st of stars){
+    const a = .25 + .55*Math.abs(Math.sin(st.p + t*.0004*st.s));
+    ctx.globalAlpha = a;
+    ctx.fillStyle = st.r > 1.1 ? '#8ee3ff' : '#c9d6f2';
+    ctx.beginPath(); ctx.arc(st.x, st.y, st.r, 0, 7); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(tick);
+})(0);
+</script>
+</body>
+</html>
