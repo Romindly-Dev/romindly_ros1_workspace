@@ -84,6 +84,10 @@ nav{
   transition:.2s;
 }
 #langBtn:hover{border-color:var(--cyan);box-shadow:0 0 12px rgba(78,201,255,.3)}
+#menuBtn{
+  display:none;background:none;border:1px solid var(--line);border-radius:8px;
+  color:var(--cyan);font-size:1.1rem;line-height:1;padding:6px 11px;cursor:pointer;
+}
 /* ====== HERO ====== */
 header{padding:110px 0 80px;text-align:center;position:relative}
 .hero-badge{
@@ -218,9 +222,42 @@ h1 .grad{
 footer{border-top:1px solid var(--line);padding:44px 0 60px;text-align:center;color:var(--text-dim);font-size:.88rem}
 footer .links{display:flex;gap:26px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
 .scan{position:fixed;inset:0;z-index:60;pointer-events:none;background:repeating-linear-gradient(transparent 0 3px,rgba(0,0,0,.06) 3px 4px);opacity:.5}
+/* ====== 移动端适配 ====== */
+.tier-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:24px}
+.tier-wrap .tier{margin-bottom:0;min-width:430px}
+@media (max-width:760px){
+  .grid{grid-template-columns:1fr}
+  .repo-grid{grid-template-columns:repeat(auto-fill,minmax(min(250px,100%),1fr))}
+  .chip-grid{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:1fr 1fr}
+}
 @media (max-width:640px){
-  .nav-links{display:none}
-  section{padding:52px 0}
+  #menuBtn{display:block}
+  .nav-links{
+    display:none;
+    position:absolute;top:60px;left:0;right:0;
+    flex-direction:column;gap:0;
+    background:rgba(4,6,15,.97);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+    padding:8px 24px 14px;
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{padding:12px 0;border-bottom:1px dashed rgba(123,138,176,.15);font-size:1rem}
+  .nav-links a:last-child{border-bottom:none}
+  header{padding:70px 0 56px}
+  section{padding:48px 0}
+  .wrap{padding:0 18px}
+  .hero-sub{font-size:.98rem}
+  .hero-btns .btn{width:100%;justify-content:center}
+  .stat{padding:18px 8px}
+  .stat .num{font-size:1.55rem}
+  .card{padding:20px 18px 16px}
+  .chip-grid{grid-template-columns:1fr}
+  .hw{gap:30px}
+  .hw-cta{flex-direction:column}
+  .hw-cta .btn{width:100%;justify-content:center}
+  .term pre{padding:18px 16px;font-size:.78rem}
+  h2{font-size:1.5rem}
 }
 </style>
 </head>
@@ -241,6 +278,7 @@ footer .links{display:flex;gap:26px;justify-content:center;margin-bottom:16px;fl
         <a href="https://www.romindly.com/zh" target="_blank" rel="noopener"><span class="zh">公司主页</span><span class="en">Romindly.com</span></a>
       </div>
       <button id="langBtn" aria-label="switch language">EN</button>
+      <button id="menuBtn" aria-label="menu">☰</button>
     </div>
   </div>
 </nav>
@@ -456,6 +494,7 @@ roslaunch urdf_demo display.launch
           <div class="chip"><b><span class="zh">形态</span><span class="en">FORM</span></b><span class="zh">75×75×48.5mm · 350g · 抗振 GH1.25 端子</span><span class="en">75×75×48.5mm · 350g · vibration-proof GH1.25</span></div>
         </div>
 
+        <div class="tier-wrap">
         <table class="tier">
           <tr>
             <th><span class="zh">配置</span><span class="en">Tier</span></th>
@@ -466,6 +505,7 @@ roslaunch urdf_demo display.launch
           <tr><td class="mono">N300</td><td><span class="zh">多传感器融合 + 完整导航栈</span><span class="en">Sensor fusion + full nav stack</span></td><td>00–45</td></tr>
           <tr><td class="mono">i3-N305</td><td><span class="zh">3D 激光 SLAM（LIO-SAM / FAST-LIO）</span><span class="en">3D LiDAR SLAM (LIO-SAM / FAST-LIO)</span></td><td><span class="zh">全部</span><span class="en">All</span></td></tr>
         </table>
+        </div>
 
         <div class="hw-cta">
           <a class="btn btn-primary" href="https://www.romindly.com/zh/products/romindly-m1-mini-pc-intel-n150-n300-i3-n305-mini-desktop-computer-dual-2-5g-lan-triple-display-4k-60hz-output-dual-hdmi-type-c-support-wifi6-bt5-2-%E5%89%AF%E6%9C%AC" target="_blank" rel="noopener">⟡ <span class="zh">查看产品 / 购买</span><span class="en">View Product / Buy</span></a>
@@ -551,6 +591,13 @@ try{ saved = localStorage.getItem('lang'); }catch(e){}
 applyLang(saved || ((navigator.language || 'zh').toLowerCase().startsWith('zh') ? 'zh' : 'en'));
 btn.addEventListener('click', () =>
   applyLang(document.body.classList.contains('lang-en') ? 'zh' : 'en'));
+
+// ====== 移动端菜单 ======
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.querySelector('.nav-links');
+menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a =>
+  a.addEventListener('click', () => navLinks.classList.remove('open')));
 
 // ====== 产品图缩略切换 ======
 const hwMain = document.getElementById('hwMain');
