@@ -1,0 +1,39 @@
+# CI: 在 ros:noetic 容器中编译全套第一阶段仓库，保证教程代码始终可编译
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 2 * * 1" # 每周一凌晨跑一次，及时发现上游漂移
+
+jobs:
+  catkin-build:
+    runs-on: ubuntu-latest
+    container: ros:noetic-ros-base-focal
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: ws/src/romindly_ros1_workspace
+
+      - name: Import repos
+        shell: bash
+        run: |
+          apt-get update && apt-get install -y python3-vcstool git
+          cd ws
+          vcs import src < src/romindly_ros1_workspace/ros1.repos
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          cd ws
+          rosdep update
+          rosdep install --from-paths src --ignore-src -r -y
+
+      - name: Build
+        shell: bash
+        run: |
+          source /opt/ros/noetic/setup.bash
+          cd ws
+          catkin_make
