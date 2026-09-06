@@ -8,11 +8,11 @@
 | --- | --- | --- |
 | [00 环境搭建](00_环境搭建/01_Ubuntu20.04_ROS_Noetic安装.md) | Noetic 安装、工作空间与代码拉取、常用工具速查 | ✅ |
 | [10 ROS1 基础](10_ROS1基础/01_核心概念总览.md) | 核心概念总览、话题通信、launch 与参数服务器 | ✅ |
-| [15 仿真入门](15_仿真入门/README.md) | TurtleBot3 三件套 + Gazebo：安装模型、键盘遥控、传感器话题观察 | 🚧 |
-| [20 2D 建图](20_2D建图/README.md) | gmapping / hector / cartographer / slam_toolbox 对比、录包建图、地图保存 | 🚧 |
+| [15 仿真入门](15_仿真入门/README.md) | TurtleBot3 三件套 + Gazebo：安装模型、键盘遥控、传感器话题观察 | ✅ |
+| [20 2D 建图](20_2D建图/README.md) | gmapping / hector / cartographer / slam_toolbox 对比、录包建图、地图保存 | ✅ |
 | [25 3D 激光 SLAM](25_3D激光SLAM/README.md) | A-LOAM 原理、LIO-SAM、FAST-LIO 实战与算力评估 | 🚧 |
-| [30 定位](30_定位/README.md) | AMCL 原理与调参、robot_localization EKF 融合、hdl_localization 3D 定位 | 🚧 |
-| [40 导航](40_导航/README.md) | move_base 架构、costmap 调参、DWA vs TEB、导航调优清单 | 🚧 |
+| [30 定位](30_定位/README.md) | AMCL 原理与调参、robot_localization EKF 融合、hdl_localization 3D 定位 | ✅ |
+| [40 导航](40_导航/README.md) | move_base 架构、costmap 调参、DWA vs TEB、导航调优清单 | ✅ |
 | [45 传感器驱动](45_传感器驱动/README.md) | rplidar / velodyne / realsense 接入、udev 规则固定设备名 | 🚧 |
 | [50 部署运维](50_部署运维/README.md) | systemd 自启、Docker 部署、多机通信、性能优化 | 🚧 |
 

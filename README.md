@@ -40,11 +40,11 @@ roslaunch urdf_demo display.launch   # 应弹出 RViz 并显示差速小车模�
 |---|---|---|
 | [00 环境搭建](docs/00_环境搭建/) | Ubuntu 20.04 + Noetic 安装、工作空间、常用工具 | ✅ |
 | [10 ROS1 基础](docs/10_ROS1基础/) | 话题、服务、Action、TF2、URDF、launch、rosbag | ✅ |
-| [15 仿真入门](docs/15_仿真入门/) | TurtleBot3 + Gazebo 仿真环境 | 🚧 |
-| [20 2D 建图](docs/20_2D建图/) | gmapping / hector / cartographer / slam_toolbox 对比与调参 | 🚧 |
+| [15 仿真入门](docs/15_仿真入门/) | TurtleBot3 + Gazebo 仿真环境 | ✅ |
+| [20 2D 建图](docs/20_2D建图/) | gmapping / hector / cartographer / slam_toolbox 对比与调参 | ✅ |
 | [25 3D 激光 SLAM](docs/25_3D激光SLAM/) | A-LOAM / LIO-SAM / FAST-LIO 实战 | 🚧 |
-| [30 定位](docs/30_定位/) | AMCL、robot_localization 多传感器融合、hdl_localization | 🚧 |
-| [40 导航](docs/40_导航/) | move_base 架构、costmap、DWA vs TEB 调参 | 🚧 |
+| [30 定位](docs/30_定位/) | AMCL、robot_localization 多传感器融合、hdl_localization | ✅ |
+| [40 导航](docs/40_导航/) | move_base 架构、costmap、DWA vs TEB 调参 | ✅ |
 | [45 传感器驱动](docs/45_传感器驱动/) | 激光雷达 / 深度相机 / IMU 实机接入 | 🚧 |
 | [50 部署运维](docs/50_部署运维/) | 实机部署、Docker、开机自启、性能优化 | 🚧 |
 
