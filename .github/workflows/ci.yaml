@@ -12,6 +12,11 @@ jobs:
   catkin-build:
     runs-on: ubuntu-latest
     container: ros:noetic-ros-base-focal
+    timeout-minutes: 120
+    env:
+      # 必须: 否则 rosdep 安装 keyboard-configuration 等包时弹交互式提问, 卡死整个任务
+      DEBIAN_FRONTEND: noninteractive
+      TZ: Etc/UTC
     steps:
       - name: Fix rotated ROS apt key (2025 key rotation)
         shell: bash
