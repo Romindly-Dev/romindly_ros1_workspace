@@ -88,7 +88,7 @@ rosdep resolves and installs the system dependencies of ROS packages. The offici
 ```bash
 sudo apt install -y python3-rosdep
 sudo rosdep init
-rosdep update
+rosdep update --include-eol-distros   # Noetic is EOL; without this flag rosdep resolves no ROS packages at all
 ```
 
 **On networks in China, `rosdep init` and `rosdep update` are very likely to time out.** The recommended alternative is rosdepc (the "c" stands for China), maintained by the local community:

@@ -55,7 +55,8 @@ jobs:
         shell: bash
         run: |
           cd ws
-          rosdep update
+          # Noetic 已 EOL: 不加 --include-eol-distros 则 rosdep 解析不到任何 ROS 包
+          rosdep update --include-eol-distros
           rosdep install --from-paths src --ignore-src -r -y
 
       - name: Build

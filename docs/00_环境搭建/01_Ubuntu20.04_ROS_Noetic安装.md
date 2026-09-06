@@ -88,7 +88,7 @@ rosdep 用于解析并安装 ROS 包的系统依赖。官方初始化方式：
 ```bash
 sudo apt install -y python3-rosdep
 sudo rosdep init
-rosdep update
+rosdep update --include-eol-distros   # Noetic 已 EOL, 不加此参数将解析不到任何 ROS 包
 ```
 
 **国内网络下 `rosdep init` 和 `rosdep update` 大概率超时失败**，推荐使用国内社区维护的 rosdepc（"c" 指 China）替代：

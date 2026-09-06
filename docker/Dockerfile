@@ -46,15 +46,18 @@ RUN git clone --depth 1 https://github.com/Livox-SDK/Livox-SDK.git /tmp/Livox-SD
     make -C /tmp/Livox-SDK/build -j"$(nproc)" && make -C /tmp/Livox-SDK/build install && \
     rm -rf /tmp/Livox-SDK
 
-# 创建工作空间并拉取代码 (含子模块)
+# 创建工作空间并拉取代码 (含子模块; 大子模块易受网络波动影响, 失败自动重试)
 WORKDIR /root/ws_romindly
 COPY ros1.repos /root/ws_romindly/
-RUN mkdir -p src && vcs import --recursive src < ros1.repos
+RUN git config --global http.postBuffer 524288000 && mkdir -p src && \
+    (vcs import --recursive src < ros1.repos || vcs import --recursive src < ros1.repos) && \
+    vcs custom --args submodule update --init --recursive -- src
 
 # 安装 rosdep 依赖并编译
+# 注意: Noetic 已 EOL, rosdep update 必须加 --include-eol-distros, 否则解析不到任何 ROS 包
 RUN source /opt/ros/noetic/setup.bash && \
     apt-get update && \
-    (rosdep init 2>/dev/null; rosdep update) && \
+    (rosdep init 2>/dev/null; rosdep update --include-eol-distros) && \
     rosdep install --from-paths src --ignore-src -r -y && \
     catkin_make -j"$(nproc)" && \
     rm -rf /var/lib/apt/lists/*
