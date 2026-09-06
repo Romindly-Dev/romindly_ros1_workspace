@@ -1,8 +1,9 @@
 # ros1.repos — vcstool 仓库清单
 # 用法: cd ~/ws_romindly && vcs import src < src/romindly_ros1_workspace/ros1.repos
 #
-# 第一阶段仓库已启用；后续阶段的仓库以注释形式预留，fork 完成后取消注释。
-# version 字段锁定分支；实测稳定后将改为锁定具体 commit。
+# fork 仓库均锁定到 Ubuntu 20.04 + Noetic x86_64 实测编译通过的 commit（注释标注来源分支），
+# 保证任何时候拉取都能复现；自建仓库跟随 main。
+# 升级方式: 在对应 fork 上合入新 commit 并实测后，更新此处 SHA。
 
 repositories:
   # ========== 自建仓库 ==========
@@ -19,53 +20,53 @@ repositories:
   ros_tutorials:
     type: git
     url: https://github.com/Romindly-Dev/ros_tutorials.git
-    version: noetic-devel
+    version: dbf2dc3c89f26a5cad3b7f26f4838bb1fd618bba   # noetic-devel 分支
   turtlebot3:
     type: git
     url: https://github.com/Romindly-Dev/turtlebot3.git
-    version: noetic
+    version: 4ae959ea6a52415c90bf752d2b76e3e28f8a87e2   # noetic 分支
   turtlebot3_msgs:
     type: git
     url: https://github.com/Romindly-Dev/turtlebot3_msgs.git
-    version: noetic
+    version: 76e78b0a34e07cf1dd16dafdc54c44f35c5b83eb   # noetic 分支
   turtlebot3_simulations:
     type: git
     url: https://github.com/Romindly-Dev/turtlebot3_simulations.git
-    version: noetic
+    version: e9d809ca8e3bf889c0275e4103b15a341ffab888   # noetic 分支
 
   # ========== 第二阶段: 2D 建图 / 定位 / 导航 ==========
   slam_gmapping:
     type: git
     url: https://github.com/Romindly-Dev/slam_gmapping.git
-    version: melodic-devel   # melodic 分支在 noetic 下可正常编译
+    version: eec86068ceb92ebc433b435fe482db14c562f268   # melodic-devel 分支, melodic 分支在 noetic 下可正常编译
   openslam_gmapping:
     type: git
     url: https://github.com/Romindly-Dev/openslam_gmapping.git
-    version: melodic-devel
+    version: 5105476edb125bd3e05df3583b5817c486238dec   # melodic-devel 分支
   hector_slam:
     type: git
     url: https://github.com/Romindly-Dev/hector_slam.git
-    version: noetic-devel
+    version: a5e77fd3297055f5f0776ed56fafa60790494e98   # noetic-devel 分支
   slam_toolbox:
     type: git
     url: https://github.com/Romindly-Dev/slam_toolbox.git
-    version: noetic-devel
+    version: 8a754bb37485c598064dd1e5d00057ece4e3891d   # noetic-devel 分支
   robot_localization:
     type: git
     url: https://github.com/Romindly-Dev/robot_localization.git
-    version: noetic-devel
+    version: 9ef26a57fafd9b97c135a7e07f52cf0168e94178   # noetic-devel 分支
   navigation:
     type: git
     url: https://github.com/Romindly-Dev/navigation.git
-    version: noetic-devel
+    version: f44bb1fc2810399165115cc98b530fe4b9397c18   # noetic-devel 分支
   teb_local_planner:
     type: git
     url: https://github.com/Romindly-Dev/teb_local_planner.git
-    version: noetic-devel
+    version: 8f429538601d7c4102aa345e8b5ba8dfae989c00   # noetic-devel 分支
   costmap_converter:
     type: git
     url: https://github.com/Romindly-Dev/costmap_converter.git
-    version: master
+    version: d1d57b6e6be35a0a9e802de8325d14c399cca9ed   # master 分支
 
   # cartographer 源码编译需 catkin_make_isolated + abseil，不放主工作空间。
   # 学习使用请直接: sudo apt install ros-noetic-cartographer-ros
@@ -80,43 +81,43 @@ repositories:
   A-LOAM:
     type: git
     url: https://github.com/Romindly-Dev/A-LOAM.git
-    version: devel   # 本 fork 已含 Noetic 适配补丁 (C++14 / OpenCV4)
+    version: e57d00a2950ed0fb54aa2cb8af8d8d9bb6935fec   # devel 分支, 本 fork 已含 Noetic 适配补丁 (C++14 / OpenCV4)
   LIO-SAM:
     type: git
     url: https://github.com/Romindly-Dev/LIO-SAM.git
-    version: master
+    version: 07fae37425d90a276b75ef303655e979bb2dd273   # master 分支
   FAST_LIO:
     type: git
     url: https://github.com/Romindly-Dev/FAST_LIO.git
-    version: main
+    version: 28202530fd11337032ac806bbd5dd1162fce22cb   # main 分支
   hdl_localization:
     type: git
     url: https://github.com/Romindly-Dev/hdl_localization.git
-    version: master
+    version: de2dc7769aa2412876d05ae6161408d3295b6a3c   # master 分支
   ndt_omp:
     type: git
     url: https://github.com/Romindly-Dev/ndt_omp.git
-    version: master
+    version: 5495fd9214945afcb4b35d5a1da385e405c52bf9   # master 分支
   fast_gicp:
     type: git
     url: https://github.com/Romindly-Dev/fast_gicp.git
-    version: master
+    version: 0e7ec1441c99f7be453db2ea216d5de029387417   # master 分支
   hdl_global_localization:
     type: git
     url: https://github.com/Romindly-Dev/hdl_global_localization.git
-    version: master
+    version: a6a6b69929ac371d9531d0dcdef3c1593fd49245   # master 分支
   livox_ros_driver:
     type: git
     url: https://github.com/Romindly-Dev/livox_ros_driver.git
-    version: master
+    version: 3d240d5666129e1a3052e78ee8487a04b08fdda3   # master 分支
   rplidar_ros:
     type: git
     url: https://github.com/Romindly-Dev/rplidar_ros.git
-    version: master
+    version: 3cd94febf0ad7710a3115d57f6063a0c8f6f5bb2   # master 分支
   velodyne:
     type: git
     url: https://github.com/Romindly-Dev/velodyne.git
-    version: melodic-devel   # ROS1 分支 (默认分支已是 ros2)
+    version: b8096297fa4eeadd5f3bb83a282fd3e21c531171   # melodic-devel 分支, ROS1 分支 (默认分支已是 ros2)
 
   # realsense-ros 源码编译需 librealsense2 SDK，学习使用请直接:
   #   sudo apt install ros-noetic-realsense2-camera ros-noetic-realsense2-description
