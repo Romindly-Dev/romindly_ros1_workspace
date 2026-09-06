@@ -72,36 +72,52 @@ repositories:
   # 源码阅读请看 fork: https://github.com/Romindly-Dev/cartographer
   #             与    https://github.com/Romindly-Dev/cartographer_ros
 
-  # ========== 第三阶段: 3D SLAM / 传感器驱动 (fork 后取消注释) ==========
-  # A-LOAM:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/A-LOAM.git
-  #   version: devel
-  # LIO-SAM:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/LIO-SAM.git
-  #   version: master
-  # FAST_LIO:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/FAST_LIO.git
-  #   version: main
-  # hdl_localization:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/hdl_localization.git
-  #   version: master
-  # ndt_omp:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/ndt_omp.git
-  #   version: master
-  # rplidar_ros:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/rplidar_ros.git
-  #   version: master
-  # velodyne:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/velodyne.git
-  #   version: master
-  # realsense-ros:
-  #   type: git
-  #   url: https://github.com/Romindly-Dev/realsense-ros.git
-  #   version: ros1-legacy
+  # ========== 第三阶段: 3D SLAM / 传感器驱动 ==========
+  # 注意: FAST_LIO 与 fast_gicp 含子模块，请用 `vcs import --recursive`，
+  #       或导入后执行 `git submodule update --init --recursive`。
+  # 系统依赖: libceres-dev(A-LOAM)、GTSAM PPA(LIO-SAM)、Livox-SDK(livox_ros_driver)，
+  #           安装命令见 docs/25_3D激光SLAM/01 篇。
+  A-LOAM:
+    type: git
+    url: https://github.com/Romindly-Dev/A-LOAM.git
+    version: devel   # 本 fork 已含 Noetic 适配补丁 (C++14 / OpenCV4)
+  LIO-SAM:
+    type: git
+    url: https://github.com/Romindly-Dev/LIO-SAM.git
+    version: master
+  FAST_LIO:
+    type: git
+    url: https://github.com/Romindly-Dev/FAST_LIO.git
+    version: main
+  hdl_localization:
+    type: git
+    url: https://github.com/Romindly-Dev/hdl_localization.git
+    version: master
+  ndt_omp:
+    type: git
+    url: https://github.com/Romindly-Dev/ndt_omp.git
+    version: master
+  fast_gicp:
+    type: git
+    url: https://github.com/Romindly-Dev/fast_gicp.git
+    version: master
+  hdl_global_localization:
+    type: git
+    url: https://github.com/Romindly-Dev/hdl_global_localization.git
+    version: master
+  livox_ros_driver:
+    type: git
+    url: https://github.com/Romindly-Dev/livox_ros_driver.git
+    version: master
+  rplidar_ros:
+    type: git
+    url: https://github.com/Romindly-Dev/rplidar_ros.git
+    version: master
+  velodyne:
+    type: git
+    url: https://github.com/Romindly-Dev/velodyne.git
+    version: melodic-devel   # ROS1 分支 (默认分支已是 ros2)
+
+  # realsense-ros 源码编译需 librealsense2 SDK，学习使用请直接:
+  #   sudo apt install ros-noetic-realsense2-camera ros-noetic-realsense2-description
+  # 源码阅读请看 fork (ros1-legacy 分支): https://github.com/Romindly-Dev/realsense-ros
